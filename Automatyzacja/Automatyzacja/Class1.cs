@@ -22,7 +22,7 @@ namespace Automatyzacja
 
 
         [Fact]
-        public void ExampleTest()
+        public void TC01_AddNote()
         {    
             browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/wp-admin");
 
@@ -84,7 +84,32 @@ namespace Automatyzacja
             Assert.Equal(expectedContent,browser.FindElement(By.CssSelector(".entry-content")).Text);
 
         }
-        private void WaitForClickable(By by, int seconds)
+
+        [Fact]
+        public void TC02_AddComment()
+        {
+            browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/uncategorized/autem-vel-rerum-saepe/");
+var publishComment = browser.FindElement(By.Id("submit"));
+            WaitForClickable(By.Id("submit"), 5);            
+            string commentContent = Faker.Lorem.Sentence();
+            string emailContent = Faker.Internet.Email();
+            string nameContent = Faker.Name.First();
+            var comment = browser.FindElement(By.Id("comment"));
+            comment.SendKeys(commentContent);
+            var author = browser.FindElement(By.Id("author"));
+            author.SendKeys(nameContent);
+            var email = browser.FindElement(By.Id("email"));
+            email.SendKeys(emailContent);
+            email.Submit();
+            var commentsList = browser.FindElements(By.CssSelector(".comment-content")).Select(x=>x.Text);
+            Assert.Contains(commentContent, commentsList);
+
+
+
+
+        }
+
+            private void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
