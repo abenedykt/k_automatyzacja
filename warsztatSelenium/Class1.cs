@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using Faker;
+using OpenQA.Selenium.Interactions;
 
 namespace warsztatSelenium
 {
@@ -48,6 +49,20 @@ namespace warsztatSelenium
 			noteField.SendKeys(Faker.Lorem.Paragraph());
 			var submit = browser.FindElement(By.Id("publish"));
 			submit.Click();
+			WaitForClickable(By.Id("publish"), 5);
+			WaitForClickable(By.Id("edit-slug-buttons"), 5);
+			var editLinkButton = browser.FindElement(By.Id("edit-slug-buttons"));
+			editLinkButton.Click();
+			var newLinkInput = browser.FindElement(By.Id("new-post-slug"));
+			var partialLinkText = newLinkInput.GetAttribute("value");
+			var linkText = "http://automatyzacja.benedykt.net/uncategorized/" + partialLinkText;
+			Console.WriteLine(linkText);
+			var element = browser.FindElement(By.Id("wp-admin-bar-my-account"));
+			var logout = browser.FindElement(By.PartialLinkText("Wyloguj"));
+			Actions action = new Actions(browser);
+			action.MoveToElement(element).Build().Perform();
+			logout.Click();
+
 		}
 		private void WaitForClickable(By by, int seconds)
 		{
