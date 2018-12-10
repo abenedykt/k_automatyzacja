@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,18 @@ namespace Automatyzacja
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
 
+        private void MoveToElement(By selector)
+        {
+            var element = browser.FindElement(selector);
+            MoveToElement(element);
+        }
+        private void MoveToElement(IWebElement element)
+        {
+            Actions builder = new Actions(browser);
+            Actions moveTo = builder.MoveToElement(element);
+            moveTo.Build().Perform();
+        }
+
         [Fact]
         public void ExampleTest()
         {
@@ -68,8 +81,8 @@ namespace Automatyzacja
             var noteTitle = browser.FindElement(By.Id("title-prompt-text"));
             noteTitle.Click();
             var title = browser.FindElement(By.Id("title"));
-
-            title.SendKeys(Faker.Lorem.Sentence());
+            var tytul = Faker.Lorem.Sentence();
+            title.SendKeys(tytul);
 
             var html2Text = browser.FindElement(By.Id("content-html"));
             html2Text.Click();
@@ -77,8 +90,10 @@ namespace Automatyzacja
             WaitForClickable(By.Id("publish"), 10);
             WaitForClickable(By.CssSelector(".edit-slug.button"), 10);
 
+            var tresc = Faker.Lorem.Paragraph();
             var content = browser.FindElement(By.Id("content"));
-            content.SendKeys(Faker.Lorem.Paragraph());
+
+            content.SendKeys(tresc);
 
             WaitForClickable(By.CssSelector("input#publish"), 10);
             var publish = browser.FindElement(By.CssSelector("input#publish"));
@@ -89,9 +104,17 @@ namespace Automatyzacja
 
             var posturl = browser.FindElement(By.CssSelector("#sample-permalink>a"));
             var url = posturl.GetAttribute("href");
+            MoveToElement(By.Id("wp-admin-bar-my-account"));
+            WaitForClickable(By.Id("wp-admin-bar-logout"),10);
+            var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
+            logout.Click();
+            Assert.NotNull(browser.FindElement(By.Id("user_login")));
+            Assert.NotNull(browser.FindElement(By.Id("user_pass")));
 
-
-
+            browser.Navigate().GoToUrl(url);
+            
+            Assert.Equal(tytul,browser.FindElement(By.CssSelector(".entry-header")).Text);
+            Assert.Equal(tresc, browser.FindElement(By.CssSelector(".entry-content")).Text);
             //var successmessage = browser.FindElements(By.ClassName(""));
         }
     }
