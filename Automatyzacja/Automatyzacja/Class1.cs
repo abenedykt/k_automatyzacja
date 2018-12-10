@@ -11,17 +11,17 @@ using Xunit;
 
 namespace Automatyzacja
 {
-    public class Class1 : IDisposable
+    public class Wordpress : IDisposable
     {
         private IWebDriver browser;
 
-        public Class1()
+        public Wordpress()
         {
             browser = new ChromeDriver();
         }
                
         [Fact]
-        public void ExampleTest()
+        public void Can_create_new_post_and_its_avaliable_to_outside_users()
         {
             browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/wp-admin");
 
