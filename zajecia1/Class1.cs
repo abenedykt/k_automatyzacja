@@ -98,7 +98,41 @@ namespace zajecia1
 
             Assert.Equal(entryTitle, browser.FindElement(By.ClassName("entry-title")).Text);
             Assert.Equal(entryContent, browser.FindElement(By.ClassName("entry-content")).Text);
+        }
 
+        [Fact]
+        public void AddNewComment()
+        {
+            browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/");
+
+            ScrollToElement(By.Id("comment"));
+            var fakerComment = Faker.Lorem.Sentence();
+            var comment = browser.FindElement(By.Id("comment"));
+            comment.SendKeys(fakerComment);
+
+            ScrollToElement(By.Id("author"));
+            var fakerUserName = Faker.Name.First();
+            var userName = browser.FindElement(By.Id("author"));
+            userName.SendKeys(fakerUserName);
+
+            ScrollToElement(By.Id("email"));
+            var fakerEmail = Faker.Internet.Email();
+            var email = browser.FindElement(By.Id("email"));
+            email.SendKeys(fakerEmail);
+
+            ScrollToElement(By.ClassName("nav-previous"));
+            var submit = browser.FindElement(By.Id("submit"));
+            submit.Click();
+
+            var comments = browser.FindElements(By.ClassName("comment-content"));
+            var foundComment = comments.Single(a => a.Text == fakerComment);
+
+            Assert.NotNull(foundComment);
+
+            var users = browser.FindElements(By.ClassName("fn"));
+            var foundUser = users.Single(a => a.Text == fakerUserName);
+
+            Assert.NotNull(foundUser);
 
         }
 
@@ -123,6 +157,14 @@ namespace zajecia1
             Actions builder = new Actions(browser);
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
+        }
+
+        private void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
         }
 
         public void Dispose()
