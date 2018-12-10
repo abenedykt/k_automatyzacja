@@ -47,6 +47,13 @@ namespace Automatyzacja
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
+        private void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
 
         [Fact]
         public void ExampleTest()
@@ -99,9 +106,6 @@ namespace Automatyzacja
             var publish = browser.FindElement(By.CssSelector("input#publish"));
             publish.Click();
 
-            //WaitForClickable(By.Id("publish"), 10);
-            //WaitForClickable(By.CssSelector(".edit-slug.button"), 10);
-
             var posturl = browser.FindElement(By.CssSelector("#sample-permalink>a"));
             var url = posturl.GetAttribute("href");
             MoveToElement(By.Id("wp-admin-bar-my-account"));
@@ -115,7 +119,40 @@ namespace Automatyzacja
             
             Assert.Equal(tytul,browser.FindElement(By.CssSelector(".entry-header")).Text);
             Assert.Equal(tresc, browser.FindElement(By.CssSelector(".entry-content")).Text);
-            //var successmessage = browser.FindElements(By.ClassName(""));
+
+
+
+        }
+
+        [Fact]
+        public void AddComment()
+        {
+            browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/uncategorized/excepturi-et-est-vel/#respond");
+            WaitForClickable(By.CssSelector("h1.entry-title"),5);
+            var title = browser.FindElement(By.CssSelector("h1.entry-title"));
+            var content = browser.FindElement(By.CssSelector(".entry-content>p"));
+            var commentContent = browser.FindElement(By.Id("comment"));
+            var komentarz = Faker.Lorem.Sentence();
+            commentContent.SendKeys(komentarz);
+            var podpis = Faker.Name.FullName();
+            var podpisElement = browser.FindElement(By.Id("author"));
+            podpisElement.SendKeys(podpis);
+            var mail = Faker.Internet.Email();
+            var mailelement = browser.FindElement(By.Id("email"));
+            mailelement.SendKeys(mail);
+            var witryna = Faker.Internet.DomainName();
+            var witrynalement = browser.FindElement(By.Id("url"));
+            mailelement.SendKeys(witryna);
+            ScrollToElement(By.Id("submit"));
+            var submit = browser.FindElement(By.Id("submit"));
+            submit.Submit();
+
+            WaitForClickable(By.CssSelector(".comment-content"),5);
+
+            Assert.Contains(komentarz, browser.FindElements(By.CssSelector(".comment-content>p")).Select(x=>x.Text));
+            Assert.Contains(podpis, browser.FindElements(By.CssSelector(".fn")).Select(x => x.Text));
+
+
         }
     }
 }
