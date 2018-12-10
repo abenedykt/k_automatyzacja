@@ -27,6 +27,18 @@ namespace Automatyzacja
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
 
+        private void MoveToElement(By selector)
+        {
+            var element = browser.FindElement(selector);
+            MoveToElement(element);
+        }
+        private void MoveToElement(IWebElement element)
+        {
+            Actions builder = new Actions(browser);
+            Actions moveTo = builder.MoveToElement(element);
+            moveTo.Build().Perform();
+        }
+
         [Fact]
         public void ExampleTest()
         {
@@ -43,11 +55,13 @@ namespace Automatyzacja
             browser.FindElements(By.CssSelector(".wp-menu-name")).Single(x => x.Text == "Wpisy").Click();
             browser.FindElements(By.CssSelector(".wp-submenu > li")).Single(x => x.Text == "Dodaj nowy").Click();
             browser.FindElement(By.Id("title-prompt-text")).Click();
-            browser.FindElement(By.Id("title")).SendKeys(Faker.Lorem.Sentence());
+            String title = Faker.Lorem.Sentence();
+            browser.FindElement(By.Id("title")).SendKeys(title);
 
             WaitForClickable(By.Id("publish"), 20);
             browser.FindElement(By.Id("content-html")).Click();
-            browser.FindElement(By.Id("content")).SendKeys(Faker.Lorem.Paragraph());
+            String content = Faker.Lorem.Paragraph();
+            browser.FindElement(By.Id("content")).SendKeys(content);
             browser.FindElement(By.Id("publish")).Click();
 
             WaitForClickable(By.Id("publish"), 20);
@@ -55,10 +69,18 @@ namespace Automatyzacja
             WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
             String url = browser.FindElement(By.CssSelector("#sample-permalink > a")).GetAttribute("href").ToString();
 
-            var element = browser.FindElement(By.Id("wp-admin-bar-my-account"));
-            Actions builder = new Actions(browser);
-            builder.MoveToElement(element).Perform();
-            browser.FindElement(By.Id("wp-admin-bar-logout")).Click();
+            MoveToElement(browser.FindElement(By.Id("wp-admin-bar-my-account")));
+            var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
+            WaitForClickable(logout, 10);
+            logout.Click();
+
+            Assert.NotNull(browser.FindElement(By.Id("loginform")));
+            Assert.NotNull(browser.FindElement(By.Id("user_login")));
+
+            browser.Navigate().GoToUrl(url);
+
+            Assert.Equal(title, browser.FindElement(By.CssSelector(".entry-title")).Text);
+            Assert.Equal(content, browser.FindElement(By.CssSelector(".entry-content")).Text);
         }
     }
 }
