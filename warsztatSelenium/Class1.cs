@@ -58,11 +58,23 @@ namespace warsztatSelenium
 			var linkText = "http://automatyzacja.benedykt.net/uncategorized/" + partialLinkText;
 			Console.WriteLine(linkText);
 			var element = browser.FindElement(By.Id("wp-admin-bar-my-account"));
-			var logout = browser.FindElement(By.PartialLinkText("Wyloguj"));
-			Actions action = new Actions(browser);
-			action.MoveToElement(element).Build().Perform();
+			MoveToElement(By.Id("wp-admin-bar-my-account"));
+			var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
 			logout.Click();
-
+			browser.Navigate().GoToUrl(linkText);
+			Assert.NotNull(browser.FindElement(By.Id("user_login")));
+			Assert.NotNull(browser.FindElement(By.Id("user_pass")));
+		}
+		private void MoveToElement(By selector)
+		{
+			var element = browser.FindElement(selector);
+			MoveToElement(element);
+		}
+		private void MoveToElement(IWebElement element)
+		{
+			Actions builder = new Actions(browser);
+			Actions moveTo = builder.MoveToElement(element);
+			moveTo.Build().Perform();
 		}
 		private void WaitForClickable(By by, int seconds)
 		{
