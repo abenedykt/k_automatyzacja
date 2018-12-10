@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Automatyzacja")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("KMD A/S")]
 [assembly: AssemblyProduct("Automatyzacja")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © KMD A/S 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f541d920-104a-4f8a-b49b-2ba8c78ac11d")]
+[assembly: Guid("ed95e94a-07fa-4a41-956f-670d4a87302e")]
 
 // Version information for an assembly consists of the following four values:
 //
