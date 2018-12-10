@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using Xunit;
 
@@ -46,13 +47,41 @@ namespace day11
             var noteTitle = browser.FindElement(By.Id("title-prompt-text"));
             noteTitle.Click();
             var title = browser.FindElement(By.Id("title"));
-            title.SendKeys(Faker.Lorem.Sentence());
+            var exampleTitle = Faker.Lorem.Sentence();
+            title.SendKeys(exampleTitle);
 
             browser.FindElement(By.Id("content-html")).Click();
-
+            //czekamy aż buttony będą aktywne
+            WaitForClickable(By.Id("publish"), 5);
+            WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
             var content = browser.FindElement(By.Id("content"));
-            content.SendKeys(Faker.Lorem.Paragraph());
+            var exampleContent = Faker.Lorem.Paragraph();
+            content.SendKeys(exampleContent);
+
+            var publishBotton = browser.FindElement(By.Id("publish"));
+            publishBotton.Click();
+
+            WaitForClickable(By.Id("publish"), 5);
+            WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
+
+            var postURL = browser.FindElement(By.CssSelector("#sample-permalink > a")); //sample-permalink ma wewnątrz "a"
+            var url = postURL.GetAttribute("href");
+
+            MoveToElement(By.Id("wp-admin-bar-my-account"));
+
+            WaitForClickable(By.Id("wp-admin-bar-logout"), 5);
+
+            var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
+            logout.Click();
+
+            Assert.NotNull(browser.FindElement(By.Id("user_login")));
+            Assert.NotNull(browser.FindElement(By.Id("user_pass")));
+
+            browser.Navigate().GoToUrl(url);
+            Assert.Equal(exampleTitle, browser.FindElement(By.CssSelector(".entry-title")).Text);
+            Assert.Equal(exampleContent, browser.FindElement(By.CssSelector(".entry-content")).Text);
         }
+
         private void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
@@ -63,6 +92,19 @@ namespace day11
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
+        private void MoveToElement(By selector)
+        {
+            var element = browser.FindElement(selector);
+            MoveToElement(element);
+        }
+        private void MoveToElement(IWebElement element)
+        {
+            Actions builder = new Actions(browser);
+            Actions moveTo = builder.MoveToElement(element);
+            moveTo.Build().Perform();
+        }
+
+
         public void Dispose()
         {
             browser.Quit();
