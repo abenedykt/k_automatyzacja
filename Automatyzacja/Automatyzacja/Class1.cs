@@ -4,7 +4,6 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
-using System.Threading;
 using Xunit;
 
 namespace Automatyzacja
