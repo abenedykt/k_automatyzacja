@@ -50,7 +50,9 @@ namespace Automatyzacja
             var noteTitle = browser.FindElement(By.Id("title-prompt-text"));
             noteTitle.Click();
             var title = browser.FindElement(By.Id("title"));
-            title.SendKeys(Faker.Lorem.Sentence());
+            var expectedTitle= Faker.Lorem.Sentence();
+            title.SendKeys(expectedTitle);
+            
             WaitForClickable(By.Id("publish"), 5);
 
             browser.FindElement(By.Id("content-html")).Click();
@@ -59,8 +61,9 @@ namespace Automatyzacja
             WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
 
             var content = browser.FindElement(By.Id("content"));
-            content.SendKeys(Faker.Lorem.Paragraph());
-
+            var expectedContent = Faker.Lorem.Paragraph();
+            content.SendKeys(expectedContent);
+            WaitForClickable(By.Id("publish"), 5);
             var publishButton = browser.FindElement(By.Id("publish"));
             publishButton.Click();
 
@@ -78,18 +81,45 @@ namespace Automatyzacja
             Assert.NotNull(browser.FindElement(By.Id("user_login")));
             Assert.NotNull(browser.FindElement(By.Id("user_pass")));
 
-
-            
-
-           
-            
-          
+            browser.Navigate().GoToUrl(url);
+            Assert.Equal(expectedTitle, browser.FindElement(By.CssSelector(".entry-title")).Text);
+            Assert.Equal(expectedContent, browser.FindElement(By.CssSelector(".entry-content")).Text);
+    
 
 
 
-           
-          
+
         }
+        [Fact]
+        public void ExampleTest2()
+        {
+            browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/");
+            var commentButton = browser.FindElement(By.ClassName("comments-link"));
+            commentButton.Click();
+
+            var commentContentField = browser.FindElement(By.Id("comment"));
+            commentContentField.Click();
+            var expectedContent = Faker.Lorem.Paragraph();
+            commentContentField.SendKeys(expectedContent);
+
+            var author = browser.FindElement(By.Id("author"));
+            author.SendKeys("Test Test");
+
+            var emailAddress = browser.FindElement(By.Id("email"));
+            emailAddress.SendKeys("testing.address@gshtest.pl");
+
+            var subminButton = browser.FindElement(By.Id("submit"));
+            subminButton.Submit();
+
+            var commentsArea = browser.FindElement(By.ClassName("comments-area"));
+            Assert.Contains(expectedContent, browser.FindElements(By.CssSelector(".comment-content")).Select(X=> X.Text));
+            
+
+
+
+
+        }
+
         private void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
