@@ -113,6 +113,7 @@ namespace Automatyzacja
 
             var commentsArea = browser.FindElement(By.ClassName("comments-area"));
             Assert.Contains(expectedContent, browser.FindElements(By.CssSelector(".comment-content")).Select(X=> X.Text));
+            Assert.Contains("Test Test", browser.FindElement(By.CssSelector(".comment-author")).Text);
             
 
 
