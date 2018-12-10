@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Automatyzacja
@@ -34,7 +35,12 @@ namespace Automatyzacja
             browser.FindElement(By.Id("user_pass")).SendKeys("jesien2018");
             WaitForClickable(By.Id("wp-submit"), 5);
             browser.FindElement(By.Id("wp-submit")).Click();
-
+            browser.FindElements(By.CssSelector(".wp-menu-name")).Single(x => x.Text == "Wpisy").Click();
+            browser.FindElements(By.CssSelector(".wp-submenu > li")).Single(x => x.Text == "Dodaj nowy").Click();
+            browser.FindElement(By.Id("title-prompt-text")).Click();
+            browser.FindElement(By.Id("title")).SendKeys(Faker.Lorem.Sentence());
+            browser.FindElement(By.Id("content-html")).Click();
+            browser.FindElement(By.Id("content")).SendKeys(Faker.Lorem.Paragraph());
         }
     }
 }
