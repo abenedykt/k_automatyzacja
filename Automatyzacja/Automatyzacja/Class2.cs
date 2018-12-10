@@ -63,11 +63,13 @@ namespace Automatyzacja
             browser.FindElement(By.Id("submit")).Click();
             String url = browser.Url;
 
+            //alternatywne przejście do komentarza ze strony głównej
             //String title_rememberd = browser.FindElement(By.CssSelector(".entry-title")).Text;
             //browser.FindElement(By.CssSelector(".site-title")).Click();
             //var title = browser.FindElements(By.CssSelector(".entry-title")).Single(x => x.Text == title);
             //ScrollToElement(title);
             //title.Click();
+            //następnie linia 75
 
             browser.Navigate().GoToUrl(url);
             String[] comment_num = url.Split('#');
