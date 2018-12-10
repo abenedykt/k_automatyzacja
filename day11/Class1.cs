@@ -82,6 +82,55 @@ namespace day11
             Assert.Equal(exampleContent, browser.FindElement(By.CssSelector(".entry-content")).Text);
         }
 
+        [Fact]
+        public void ExapleTest2()
+        {
+            browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net");
+            WaitForClickable(By.ClassName("site-header-main"), 5);
+            var comments = browser.FindElement(By.ClassName("comments-link"));
+            comments.Click();
+            Assert.NotNull(browser.FindElement(By.ClassName("comment-reply-title")));
+
+            var comment = browser.FindElement(By.Id("comment"));
+            comment.Click();
+            var exampleComment = Faker.Lorem.Sentence();
+            comment.SendKeys(exampleComment);
+
+            ScrollToElement(By.Id("author"));
+            //WaitForClickable(By.Id("author"), 5);
+            var newAuthor = browser.FindElement(By.Id("author"));
+            //newAuthor.Click();
+            var exampleAuthor = Faker.Name.First();
+            newAuthor.SendKeys(exampleAuthor);
+
+            ScrollToElement(By.Id("email"));
+            //WaitForClickable(By.Id("email"), 5);
+            var email = browser.FindElement(By.Id("email"));
+            //email.Click();
+            var exampleEmail = Faker.Internet.Email();
+            email.SendKeys(exampleEmail);
+
+            ScrollToElement(By.ClassName("meta-nav"));
+            //WaitForClickable(By.Id("email"), 5);
+            var submit = browser.FindElement(By.Id("submit"));
+            submit.Click();
+
+            var allComments = browser.FindElements(By.ClassName("comment-content"));
+
+            var singleComment = allComments.Single(y => y.Text == exampleComment);
+            Assert.NotNull(singleComment);
+
+
+        }
+
+        private void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
+
         private void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
@@ -103,7 +152,6 @@ namespace day11
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
-
 
         public void Dispose()
         {
