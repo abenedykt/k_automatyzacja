@@ -26,7 +26,9 @@ namespace Automatyzacja
         [Fact]
         public void ExampleTest()
         {
-            
+            browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
+
+
         }
     }
 }
