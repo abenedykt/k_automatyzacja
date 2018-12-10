@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,12 @@ namespace Automatyzacja
             noteTitle.Click();
             var title = browser.FindElement(By.Id("title"));
             title.SendKeys(Faker.Lorem.Sentence());
+            WaitForClickable(By.Id("publish"), 5);
 
             browser.FindElement(By.Id("content-html")).Click();
+
+            WaitForClickable(By.Id("publish"), 5);
+            WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
 
             var content = browser.FindElement(By.Id("content"));
             content.SendKeys(Faker.Lorem.Paragraph());
@@ -59,9 +64,31 @@ namespace Automatyzacja
             var publishButton = browser.FindElement(By.Id("publish"));
             publishButton.Click();
 
+            WaitForClickable(By.Id("publish"), 5);
+            WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
+            var postUrl = browser.FindElement(By.CssSelector("#sample-permalink >a"));
+            var url = postUrl.GetAttribute("href");
+
+            var profile = browser.FindElement(By.Id("wp-admin-bar-my-account"));           
+
+            MoveToElement(By.Id("wp-admin-bar-my-account"));
+            WaitForClickable(By.Id("wp-admin-bar-logout"), 5);
+            var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
+            logout.Click();
+            Assert.NotNull(browser.FindElement(By.Id("user_login")));
+            Assert.NotNull(browser.FindElement(By.Id("user_pass")));
+
 
             
 
+           
+            
+          
+
+
+
+           
+          
         }
         private void WaitForClickable(By by, int seconds)
         {
@@ -76,6 +103,17 @@ namespace Automatyzacja
         public void Dispose()
         {
             browser.Quit();
+        }
+        private void MoveToElement(By selector)
+        {
+            var element = browser.FindElement(selector);
+            MoveToElement(element);
+        }
+        private void MoveToElement(IWebElement element)
+        {
+            Actions builder = new Actions(browser);
+            Actions moveTo = builder.MoveToElement(element);
+            moveTo.Build().Perform();
         }
 
     }
