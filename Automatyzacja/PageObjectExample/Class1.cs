@@ -14,17 +14,6 @@ namespace Automatyzacja
         public Class1() => browser = new ChromeDriver();
         public void Dispose() => browser.Quit();
 
-        private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
-        }
-
         private void MoveToElement(By selector)
         {
             var element = browser.FindElement(selector);

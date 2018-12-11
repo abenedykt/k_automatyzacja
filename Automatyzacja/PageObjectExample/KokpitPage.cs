@@ -4,11 +4,10 @@ using OpenQA.Selenium;
 
 namespace Automatyzacja
 {
-    internal class KokpitPage
+    internal class KokpitPage : BasePage
     {
-        private IWebDriver browser;
 
-        public KokpitPage(IWebDriver browser) => this.browser = browser;
+        public KokpitPage(IWebDriver browser) : base(browser) { }
 
         internal NewNotePage NavigateToNewNote()
         {

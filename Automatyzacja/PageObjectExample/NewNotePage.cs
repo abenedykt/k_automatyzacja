@@ -5,11 +5,9 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Automatyzacja
 {
-    internal class NewNotePage
+    internal class NewNotePage : BasePage
     {
-        private IWebDriver browser;
-
-        public NewNotePage(IWebDriver browser) => this.browser = browser;
+        public NewNotePage(IWebDriver browser) : base(browser) { }
 
         internal bool IsAt() => browser.Title.StartsWith("Dodaj nowy wpis");
 
@@ -17,7 +15,6 @@ namespace Automatyzacja
         {
             browser.FindElement(By.Id("title-prompt-text")).Click();
             browser.FindElement(By.Id("title")).SendKeys(title);
-
             browser.FindElement(By.Id("content-html")).Click();
             WaitForClickable(By.Id("publish"), 20);
             browser.FindElement(By.Id("content")).SendKeys(content);
@@ -36,26 +33,5 @@ namespace Automatyzacja
             logout.Click();
         }
 
-        private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
-        }
-        private void MoveToElement(By selector)
-        {
-            var element = browser.FindElement(selector);
-            MoveToElement(element);
-        }
-        private void MoveToElement(IWebElement element)
-        {
-            Actions builder = new Actions(browser);
-            Actions moveTo = builder.MoveToElement(element);
-            moveTo.Build().Perform();
-        }
     }
 }
