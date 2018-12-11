@@ -67,8 +67,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateNewComment.cs" />
     <Compile Include="BasePage.cs" />
+    <Compile Include="BlogPage.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ExampleTest2WithPG.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />
