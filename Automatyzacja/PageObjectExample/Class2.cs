@@ -23,6 +23,7 @@ namespace Automatyzacja
             NotePage notePage = mainPage.OpenNotePage(browser);
             Uri noteadress = notePage.AddComment(comment, name, name);
             notePage = new NotePage(browser, noteadress);
+
             Assert.Equal(name, actual: notePage.GetCommentName(browser, noteadress));
             Assert.Equal(comment, actual: notePage.GetCommentContent(browser, noteadress));
         }   

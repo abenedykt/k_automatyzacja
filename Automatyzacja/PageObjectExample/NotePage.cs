@@ -30,34 +30,22 @@ namespace Automatyzacja
             komentarz.SendKeys(comment);
             browser.FindElement(By.Id("author")).SendKeys(name);
             browser.FindElement(By.Id("email")).SendKeys(email);
-            var submit = browser.FindElement(By.Id("submit"));
             MoveToElement(By.CssSelector("nav"));
-            submit.Click();
-            Uri uri = new Uri(browser.Url);
-            return uri;
+            browser.FindElement(By.Id("submit")).Click();
+            return new Uri(browser.Url);
         }
 
-        internal string GetCommentName(IWebDriver driver, Uri url)
-        {
-            var temp = FindComment(driver, url);
-            var temp1 = temp.FindElement(By.CssSelector(".fn"));
-            return temp1.Text;            
-        }
+        internal string GetCommentName(IWebDriver driver, Uri url) => 
+            FindComment(driver, url).FindElement(By.CssSelector(".fn")).Text;
 
-        internal string GetCommentContent(IWebDriver driver, Uri url)
-        {
-            var temp = FindComment(driver, url);
-            var temp1 = temp.FindElement(By.CssSelector(".comment-content > p"));
-            return temp1.Text;
-        }
+        internal string GetCommentContent(IWebDriver driver, Uri url) => 
+            FindComment(driver, url).FindElement(By.CssSelector(".comment-content > p")).Text;
 
         private IWebElement FindComment(IWebDriver driver, Uri noteadress)
         {
-            string url = noteadress.ToString();
-            String[] comment_num = url.Split('#');
+            String[] comment_num = noteadress.ToString().Split('#');
             String searched = "div-" + comment_num[1];
-            var obj = driver.FindElement(By.Id(searched));
-            return obj;
+            return driver.FindElement(By.Id(searched));
         }
     }
 }
