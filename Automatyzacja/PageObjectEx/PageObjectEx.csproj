@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="BasePage.cs" />
     <Compile Include="CommentPage.cs" />
-    <Compile Include="newCommentPage.cs" />
     <Compile Include="PageObjectTestMain.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginPage.cs" />
