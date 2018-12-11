@@ -4,14 +4,12 @@ using OpenQA.Selenium;
 
 namespace PageObjectTest
 {
-    internal class NotePage
+    internal class NotePage : BasePage
     {
-        private IWebDriver browser;
         private Uri newNoteUrl;
 
-        public NotePage(IWebDriver browser, Uri newNoteUrl)
+        public NotePage(IWebDriver browser, Uri newNoteUrl):base(browser)
         {
-            this.browser = browser;
             this.newNoteUrl = newNoteUrl;
             browser.Navigate().GoToUrl(newNoteUrl);
         }

@@ -5,15 +5,9 @@ using OpenQA.Selenium.Support.UI;
 
 namespace PageObjectTest
 {
-    internal class KokpitPage
+    internal class KokpitPage : BasePage
     {
-        private IWebDriver browser;
-
-        public KokpitPage(IWebDriver browser)
-        {
-            this.browser = browser;
-        }
-
+        public KokpitPage(IWebDriver browser) : base(browser) { }
         internal NewNotePage NavigateToNewNote()
         {
             WaitForClickable(By.CssSelector(".wp-menu-name"), 5);
@@ -25,16 +19,6 @@ namespace PageObjectTest
             var newPost = submenuItems.Single(x => x.Text == "Dodaj nowy");
             newPost.Click();
             return new NewNotePage(browser);
-        }
-        public void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        public void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }

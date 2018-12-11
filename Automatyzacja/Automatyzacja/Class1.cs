@@ -119,9 +119,6 @@ namespace Automatyzacja
             
             Assert.Equal(tytul,browser.FindElement(By.CssSelector(".entry-header")).Text);
             Assert.Equal(tresc, browser.FindElement(By.CssSelector(".entry-content")).Text);
-
-
-
         }
 
         [Fact]
@@ -151,8 +148,6 @@ namespace Automatyzacja
 
             Assert.Contains(komentarz, browser.FindElements(By.CssSelector(".comment-content>p")).Select(x=>x.Text));
             Assert.Contains(podpis, browser.FindElements(By.CssSelector(".fn")).Select(x => x.Text));
-
-
         }
     }
 }
