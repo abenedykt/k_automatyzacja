@@ -13,9 +13,10 @@ namespace Automatyzacja
         {
             this.browser = browser;
             this.NoteUrl = NoteUrl;
+            browser.Navigate().GoToUrl(NoteUrl);
         }
 
-        public IEnumerable<char> Title { get; internal set; }
-        public IEnumerable<char> Content { get; internal set; }
+        public string Title => browser.FindElement(By.CssSelector(".entry-title")).Text;
+        public string Content => browser.FindElement(By.CssSelector(".entry-content")).Text;
     }
 }
