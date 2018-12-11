@@ -67,8 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs" />
+    <Compile Include="BlogPage.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginPage.cs" />
+    <Compile Include="newAddedCommentPage.cs" />
     <Compile Include="newNotePage.cs" />
     <Compile Include="NotePage.cs" />
     <Compile Include="PageObjectExample.cs" />

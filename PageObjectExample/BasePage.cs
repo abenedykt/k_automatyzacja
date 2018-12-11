@@ -36,5 +36,12 @@ namespace PageObjectExample
             moveTo.Build().Perform();
         }
         internal abstract bool IsAt(); //pamięć podręczna
+        protected void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
     }
 }

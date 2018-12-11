@@ -39,6 +39,23 @@ namespace PageObjectExample
             Assert.Equal(exampleTitle, notePage.Title);
             Assert.Equal(exampleContent, notePage.Content);
         }
+
+        [Fact]
+        public void Can_publish_new_comment_that_is_avaliable_to_external_user()
+        {
+            var exampleComment = Faker.Lorem.Sentence();
+            var exampleAuthor = Faker.Name.First();
+            var exampleEmail = Faker.Internet.Email();
+
+            var blogPage = new BlogPage(browser);
+            Assert.True(blogPage.IsAt());
+
+            blogPage.AddNewComment(exampleComment, exampleAuthor, exampleEmail);
+
+            Assert.Contains(exampleComment, blogPage.Comments());
+
+        }
+
         public void Dispose()
         {
            browser.Quit();
