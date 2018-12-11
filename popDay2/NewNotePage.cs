@@ -33,12 +33,12 @@ namespace popDay2
 		internal Uri Publish(string title, string content)
 		{
 			var noteTitle = browser.FindElement(By.Id("title"));
-			noteTitle.SendKeys(Faker.Lorem.Sentence());
+			noteTitle.SendKeys(title);
 			var updatedTitle = noteTitle.GetAttribute("value");
 			browser.FindElement(By.Id("content-html"));
 			var noteField = browser.FindElement(By.ClassName("wp-editor-area"));
 			noteField.Click();
-			noteField.SendKeys(Faker.Lorem.Paragraph());
+			noteField.SendKeys(content);
 			var contentValue = noteField.GetAttribute("value");
 			var submit = browser.FindElement(By.Id("publish"));
 			submit.Click();
