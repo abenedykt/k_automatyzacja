@@ -45,13 +45,14 @@ public class PageObjectTests : IDisposable
             var fakerComment = Faker.Lorem.Sentence();
             var fakerUserName = Faker.Name.First();
             var fakerEmail = Faker.Internet.Email();
-            Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
+ 
+            var blogPage = new BlogPage(browser);
 
-            var notePage = new NotePage(browser, url);
-            notePage.AddNewComment(fakerUserName, fakerEmail, fakerComment);
+            Assert.True(blogPage.IsAt());
+            blogPage.AddNewComment(fakerUserName, fakerEmail, fakerComment);
 
-            Assert.True(notePage.IsCommentExist(fakerComment));
-            Assert.True(notePage.IsUsernameExist(fakerUserName));
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.commentElementId, fakerComment));
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.userNameElementId, fakerUserName));
         }
 
         public void Dispose()
