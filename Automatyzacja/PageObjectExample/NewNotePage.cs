@@ -24,7 +24,8 @@ namespace Automatyzacja
             browser.FindElement(By.Id("publish")).Click();
             WaitForClickable(By.Id("publish"), 20);
             WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
-            return new Uri(browser.FindElement(By.CssSelector("#sample-permalink > a")).GetAttribute("href"));
+            return new Uri(browser.FindElement(By.CssSelector("#sample-permalink > a"))
+                .GetAttribute("href"));
         }
 
         internal void Logout()
@@ -56,7 +57,5 @@ namespace Automatyzacja
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
-
-
     }
 }
