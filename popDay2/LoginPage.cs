@@ -1,27 +1,15 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace popDay2
 {
-	internal class LoginPage
-	{
-		private IWebDriver browser;
 
-		public LoginPage(IWebDriver browser)
+	internal class LoginPage : BasePage
+	{
+
+
+		public LoginPage(IWebDriver browser):base(browser)
 		{
-			this.browser = browser;
 			browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
-		}
-		private void WaitForClickable(By by, int seconds)
-		{
-			var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-		}
-		private void WaitForClickable(IWebElement element, int seconds)
-		{
-			var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
 		}
 
 		internal KokpitPage Login(string userName, string password)

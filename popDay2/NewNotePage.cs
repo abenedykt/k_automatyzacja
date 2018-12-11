@@ -5,30 +5,18 @@ using OpenQA.Selenium.Support.UI;
 
 namespace popDay2
 {
-	internal class NewNotePage
+	internal class NewNotePage : BasePage
 	{
 		private IWebDriver browser;
 
-		public NewNotePage(IWebDriver browser)
+		public NewNotePage(IWebDriver browser):base(browser)
 		{
-			this.browser = browser;
 		}
 
 		internal bool IsAt()
 		{
 			return browser.Title.StartsWith("Dodaj nowy wpis");
 		}
-		private void WaitForClickable(By by, int seconds)
-		{
-			var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-		}
-		private void WaitForClickable(IWebElement element, int seconds)
-		{
-			var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
-		}
-
 
 		internal Uri Publish(string title, string content)
 		{
@@ -61,17 +49,6 @@ namespace popDay2
 			WaitForClickable(By.Id("wp-admin-bar-logout"), 5);
 			var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
 			logout.Click();
-		}
-		private void MoveToElement(By selector)
-		{
-			var element = browser.FindElement(selector);
-			MoveToElement(element);
-		}
-		private void MoveToElement(IWebElement element)
-		{
-			Actions builder = new Actions(browser);
-			Actions moveTo = builder.MoveToElement(element);
-			moveTo.Build().Perform();
 		}
 
 	}
