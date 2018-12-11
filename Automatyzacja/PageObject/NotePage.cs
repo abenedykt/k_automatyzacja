@@ -16,5 +16,10 @@ namespace PageObjectTest
 
         public string Title => browser.FindElement(By.CssSelector(".entry-header")).Text;
         public string Content => browser.FindElement(By.CssSelector(".entry-content")).Text;
+
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

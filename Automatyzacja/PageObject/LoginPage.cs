@@ -24,11 +24,10 @@ namespace PageObjectTest
             login.Click();
             return new KokpitPage(browser);
         }
-
-        internal bool IsAt()
+        internal override bool IsAt()
         {
-            return browser.FindElement(By.Id("user_login")) != null &&
-            browser.FindElement(By.Id("user_pass")) != null;
+           return browser.FindElement(By.Id("user_login")) != null &&
+                    browser.FindElement(By.Id("user_pass")) != null;
         }
     }
 }

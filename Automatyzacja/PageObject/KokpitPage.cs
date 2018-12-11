@@ -8,6 +8,12 @@ namespace PageObjectTest
     internal class KokpitPage : BasePage
     {
         public KokpitPage(IWebDriver browser) : base(browser) { }
+
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
+
         internal NewNotePage NavigateToNewNote()
         {
             WaitForClickable(By.CssSelector(".wp-menu-name"), 5);

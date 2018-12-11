@@ -10,7 +10,7 @@ namespace PageObjectTest
     {
         public NewNotePage(IWebDriver browser) : base(browser) { }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             return browser.Title.StartsWith("Dodaj nowy wpis");
         }
@@ -51,7 +51,5 @@ namespace PageObjectTest
             Assert.NotNull(browser.FindElement(By.Id("user_login")));
             Assert.NotNull(browser.FindElement(By.Id("user_pass")));
         }
-
-       
     }
 }
