@@ -19,13 +19,11 @@ namespace PageObjectExample
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
         }
-
         protected void WaitForClickable(IWebElement element, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
-
         protected void MoveToElement(By selector)
         {
             var element = browser.FindElement(selector);
@@ -37,5 +35,7 @@ namespace PageObjectExample
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
+
+        internal abstract bool IsAt();
     }
 }

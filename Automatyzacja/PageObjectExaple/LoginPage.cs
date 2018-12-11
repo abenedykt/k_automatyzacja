@@ -26,7 +26,7 @@ namespace PageObjectExample
             return new KokpitPage(browser);
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             if(browser.FindElement(By.Id("user_login")) != null &&
                browser.FindElement(By.Id("user_pass")) != null)

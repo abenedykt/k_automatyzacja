@@ -10,6 +10,11 @@ namespace PageObjectExample
         {
         }
 
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
+
         internal NewNotePage NavigateToNewNote()
         {
             var menuElements = browser.FindElements(By.ClassName("wp-menu-name"));

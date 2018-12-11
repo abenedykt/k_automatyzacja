@@ -9,7 +9,7 @@ namespace PageObjectExample
         {
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             return browser.Title.StartsWith("Dodaj nowy wpis");
         }
