@@ -39,6 +39,21 @@ public class PageObjectTests : IDisposable
             Assert.Equal(exampleContent, notePage.Content);
         }
 
+        [Fact]
+        public void PopNewComment()
+        {
+            var fakerComment = Faker.Lorem.Sentence();
+            var fakerUserName = Faker.Name.First();
+            var fakerEmail = Faker.Internet.Email();
+            Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
+
+            var notePage = new NotePage(browser, url);
+            notePage.AddNewComment(fakerUserName, fakerEmail, fakerComment);
+
+            Assert.True(notePage.IsCommentExist(fakerComment));
+            Assert.True(notePage.IsUsernameExist(fakerUserName));
+        }
+
         public void Dispose()
         {
             browser.Quit();
