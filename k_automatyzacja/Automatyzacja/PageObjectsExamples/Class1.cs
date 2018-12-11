@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +16,6 @@ namespace PageObjecttsExamples
         public Class1()
         {
             browser = new ChromeDriver();
-        }
-
-        public void Dispose()
-        {
-            browser.Quit();
         }
 
         [Fact]
@@ -42,10 +36,16 @@ namespace PageObjecttsExamples
 
             var notePage = new NotePage(browser, newNoteUrl);
 
-            Assert.Equal(exampleTitle, notePage.Title);
-            Assert.Equal(exampleContent, notePage.Content);
+
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
+
+
 
     internal class NotePage
     {
@@ -62,30 +62,12 @@ namespace PageObjecttsExamples
         public string Content { get; internal set; }
     }
 
-    internal class LoginPage
+    internal class LoginPage : BasePage
     {
-        private IWebDriver browser;
-
-        public LoginPage(IWebDriver browser)
+        public LoginPage(IWebDriver browser) : base(browser)
         {
-            this.browser = browser;
+
             browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
-        }
-
-        internal bool IsAt()
-        {
-            if(browser.FindElement(By.Id("user_login")) != null &&
-                browser.FindElement(By.Id("user_pass")) != null)
-            {
-                return true;
-            }
-
-            else
-
-            {
-                return false;
-            }
-
         }
 
         internal KokpitPage Login(string userName, string password)
@@ -104,15 +86,21 @@ namespace PageObjecttsExamples
 
             return new KokpitPage(browser);
         }
-        private void WaitForClickable(By by, int seconds)
+
+        internal bool IsAt()
         {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
+            if (browser.FindElement(By.Id("user_login")) != null &&
+                browser.FindElement(By.Id("user_pass")) != null)
+            {
+                return true;
+            }
+
+            else
+
+            {
+                return false;
+            }
+
         }
     }
 }
