@@ -51,7 +51,7 @@ namespace Automatyzacja
         {
 
             browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/");
-            browser.FindElements(By.CssSelector(".entry-title")).First().Click();
+            browser.FindElements(By.CssSelector(".comments-link")).First().Click();
             var komentarz = browser.FindElement(By.Id("comment"));
             WaitForClickable(komentarz, 5);
 
