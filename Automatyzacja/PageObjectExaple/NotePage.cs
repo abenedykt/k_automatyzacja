@@ -13,9 +13,11 @@ namespace PageObjectExample
         {
             this.browser = browser;
             this.newNoteUrl = newNoteUrl;
+
+            browser.Navigate().GoToUrl(newNoteUrl);
         }
 
-        public string Title { get; internal set; }
-        public string Content { get; internal set; }
+        public string Title => browser.FindElement(By.CssSelector(".entry-title")).Text;
+        public string Content => browser.FindElement(By.CssSelector(".entry-content")).Text;
     }
 }
