@@ -7,7 +7,7 @@ namespace Automatyzacja
         public LoginPage(IWebDriver browser) : base(browser) => 
             browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
 
-        internal bool IsAt() => browser.FindElement(By.Id("user_login")) != null &&
+        internal override bool IsAt() => browser.FindElement(By.Id("user_login")) != null &&
         browser.FindElement(By.Id("user_pass")) != null;
 
         internal KokpitPage Login(string user, string pass)

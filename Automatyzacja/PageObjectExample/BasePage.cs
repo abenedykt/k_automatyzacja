@@ -9,6 +9,7 @@ namespace Automatyzacja
     {
         protected IWebDriver browser;
         public BasePage(IWebDriver browser) => this.browser = browser;
+        internal abstract bool IsAt();
         protected void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));

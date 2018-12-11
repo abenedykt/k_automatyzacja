@@ -9,7 +9,7 @@ namespace Automatyzacja
     {
         public NewNotePage(IWebDriver browser) : base(browser) { }
 
-        internal bool IsAt() => browser.Title.StartsWith("Dodaj nowy wpis");
+        internal override bool IsAt() => browser.Title.StartsWith("Dodaj nowy wpis");
 
         internal Uri Publish(string title, string content)
         {

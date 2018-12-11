@@ -9,6 +9,11 @@ namespace Automatyzacja
 
         public KokpitPage(IWebDriver browser) : base(browser) { }
 
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
+
         internal NewNotePage NavigateToNewNote()
         {
             browser.FindElements(By.CssSelector(".wp-menu-name")).Single(x => x.Text == "Wpisy").Click();
