@@ -38,7 +38,28 @@ namespace Automatyzacja
         }
 
         [Fact]
-        public void ExampleTest()
+        public void Can_publish_new_note_that_is_available_to_external_user()
+        {
+
+            var exampleTitle = Faker.Lorem.Sentence();
+            var exampleContent = Faker.Lorem.Paragraph();
+
+            var loginPage = new LoginPage(browser);
+            Assert.True(loginPage.IsAt());
+            var kokpit = loginPage.Login("automatyzacja", "jesien2018");
+            var newNotePage = kokpit.NavigateToNewNote();
+            Assert.True(newNotePage.IsAt());
+            var newNoteUrl = newNotePage.Publish(exampleTitle, exampleContent);
+
+            newNotePage.Logout();
+
+            var notePage = new NotePage(browser, newNoteUrl);
+
+            Assert.Equal(exampleTitle, notePage.Title);
+            Assert.Equal(exampleContent, notePage.Content);
+           
+        }
+       /* public void ExampleTest()
         {
             browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
 
@@ -56,13 +77,11 @@ namespace Automatyzacja
             String title = Faker.Lorem.Sentence();
             browser.FindElement(By.Id("title")).SendKeys(title);
 
-            WaitForClickable(By.Id("publish"), 20);
             browser.FindElement(By.Id("content-html")).Click();
+            WaitForClickable(By.Id("publish"), 20);
             String content = Faker.Lorem.Paragraph();
             browser.FindElement(By.Id("content")).SendKeys(content);
             browser.FindElement(By.Id("publish")).Click();
-
-            WaitForClickable(By.Id("publish"), 20);
 
             WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
             String url = browser.FindElement(By.CssSelector("#sample-permalink > a")).GetAttribute("href").ToString();
@@ -79,6 +98,6 @@ namespace Automatyzacja
 
             Assert.Equal(title, browser.FindElement(By.CssSelector(".entry-title")).Text);
             Assert.Equal(content, browser.FindElement(By.CssSelector(".entry-content")).Text);
-        }
+        }*/
     }
 }
