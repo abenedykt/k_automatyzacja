@@ -1,16 +1,11 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace PageObjectExample
 {
-    internal class LoginPage
+    internal class LoginPage : BasePage
     {
-        private IWebDriver browser;
-
-        public LoginPage(IWebDriver browser)
+        public LoginPage(IWebDriver browser) : base(browser)
         {
-            this.browser = browser;
             browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/wp-admin");
         }
 
@@ -31,23 +26,10 @@ namespace PageObjectExample
             return new KokpitPage(browser);
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             return browser.FindElement(By.Id("user_login")) != null &&
                    browser.FindElement(By.Id("user_pass")) != null;
-        }
-
-
-
-        private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }

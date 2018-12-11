@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasePage.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />

@@ -5,16 +5,13 @@ using OpenQA.Selenium.Support.UI;
 
 namespace PageObjectExample
 {
-    internal class NewNotePage
+    internal class NewNotePage : BasePage
     {
-        private IWebDriver browser;
-
-        public NewNotePage(IWebDriver browser)
+        public NewNotePage(IWebDriver browser) : base(browser)
         {
-            this.browser = browser;
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             return browser.Title.StartsWith("Dodaj nowy wpis");
         }
@@ -64,31 +61,6 @@ namespace PageObjectExample
             var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
             logout.Click();
             WaitForClickable(By.Id("nav"), 5);
-        }
-
-        private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
-        }
-
-        private void MoveToElement(By selector)
-        {
-            var element = browser.FindElement(selector);
-            MoveToElement(element);
-        }
-
-        private void MoveToElement(IWebElement element)
-        {
-            Actions builder = new Actions(browser);
-            Actions moveTo = builder.MoveToElement(element);
-            moveTo.Build().Perform();
         }
     }
 }
