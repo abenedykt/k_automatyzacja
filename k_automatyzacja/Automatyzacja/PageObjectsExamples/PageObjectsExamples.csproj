@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2BE4B088-97B5-4974-A2EE-0E2A727ABD37}</ProjectGuid>
+    <ProjectGuid>{8D45ED0B-28D3-4BEF-9E62-18EE030E6BB4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Automatyzacja</RootNamespace>
-    <AssemblyName>Automatyzacja</AssemblyName>
+    <RootNamespace>PageObjectsExamples</RootNamespace>
+    <AssemblyName>PageObjectsExamples</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -37,9 +37,6 @@
   <ItemGroup>
     <Reference Include="Faker.NET46, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Faker.Net.1.1.1\lib\net462\Faker.NET46.dll</HintPath>
-    </Reference>
-    <Reference Include="SeleniumExtras.PageObjects, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetSeleniumExtras.PageObjects.3.11.0\lib\net45\SeleniumExtras.PageObjects.dll</HintPath>
     </Reference>
     <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
@@ -71,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="KokpitPage.cs" />
+    <Compile Include="NewNotePage.cs" />
+    <Compile Include="NotePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,8 +86,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets')" />

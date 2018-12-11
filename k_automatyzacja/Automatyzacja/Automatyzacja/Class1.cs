@@ -85,11 +85,10 @@ namespace Automatyzacja
             Assert.Equal(expectedTitle, browser.FindElement(By.CssSelector(".entry-title")).Text);
             Assert.Equal(expectedContent, browser.FindElement(By.CssSelector(".entry-content")).Text);
     
-
-
-
-
         }
+
+
+
         [Fact]
         public void ExampleTest2()
         {
