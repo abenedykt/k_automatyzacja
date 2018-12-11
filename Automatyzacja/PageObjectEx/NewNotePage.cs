@@ -6,19 +6,12 @@ using Xunit;
 
 namespace PageObjectEx
 {
-    internal class NewNotePage
+    internal class NewNotePage : BasePage
     {
-        private IWebDriver browser;
-
-        public NewNotePage(IWebDriver browser)
+        public NewNotePage(IWebDriver browser) : base(browser)
         {
-            this.browser = browser;
         }
 
-        internal bool IsAt()
-        {
-            return browser.Title.StartsWith("Dodaj nowy wpis");
-        }
 
         internal Uri Publish(string title, string content)
         {
@@ -68,16 +61,9 @@ namespace PageObjectEx
             Assert.NotNull(browser.FindElement(By.Id("user_pass")));
         }
 
-        private void MoveToElement(By selector)
+        internal override bool IsAt()
         {
-            var element = browser.FindElement(selector);
-            MoveToElement(element);
-        }
-        private void MoveToElement(IWebElement element)
-        {
-            Actions builder = new Actions(browser);
-            Actions moveTo = builder.MoveToElement(element);
-            moveTo.Build().Perform();
+            return browser.Title.StartsWith("Dodaj nowy wpis");
         }
     }
 }

@@ -4,13 +4,15 @@ using OpenQA.Selenium;
 
 namespace PageObjectEx
 {
-    internal class KokpitPage
+    internal class KokpitPage : BasePage
     {
-        private IWebDriver browser;
-
-        public KokpitPage(IWebDriver browser)
+        public KokpitPage(IWebDriver browser) : base(browser)
         {
-            this.browser = browser;
+        }
+
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
         }
 
         internal NewNotePage NavigateToNewNote()

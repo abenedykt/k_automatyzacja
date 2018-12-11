@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ namespace PageObjectEx
 {
     public class Wordpress_pop_tests:IDisposable
     {
+        
         private IWebDriver browser;
 
         public Wordpress_pop_tests()
@@ -41,16 +41,6 @@ namespace PageObjectEx
             Assert.Equal(exampleContent, notePage.Content);
         }
 
-             private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
-        }
 
 
 
