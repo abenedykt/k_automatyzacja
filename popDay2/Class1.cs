@@ -12,11 +12,12 @@ using OpenQA.Selenium.Interactions;
 
 namespace popDay2
 {
-	public class Class1 : IDisposable
+	public class Class1 : IDisposable  
 	{
 		private IWebDriver browser;
 
 		public Class1()
+	
 		{
 			browser = new ChromeDriver();
 		}
@@ -34,8 +35,7 @@ namespace popDay2
 			var newNotePage = kokpit.NavigateToNewNote();
 			Assert.True(newNotePage.IsAt());
 			var newNoteUrl = newNotePage.Publish(exampleTitle, exampleContent);
-			WaitForClickable(By.Id("publish"), 5);
-
+			
 			newNotePage.Logout();
 
 			var notePage = new NotePage(browser, newNoteUrl);

@@ -34,6 +34,6 @@ namespace popDay2
 			Actions moveTo = builder.MoveToElement(element);
 			moveTo.Build().Perform();
 		}
-
+		internal abstract bool IsAt();
 	}
 }

@@ -26,11 +26,10 @@ namespace popDay2
 			return new KokpitPage(browser);
  		}
 
-		internal bool IsAt()
+		internal override bool IsAt()
 		{
 			return browser.FindElement(By.Id("user_login")) != null &&
 				browser.FindElement(By.Id("user_pass")) != null;
 		}
-
 	}
 }

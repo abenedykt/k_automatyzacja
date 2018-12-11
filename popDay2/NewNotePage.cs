@@ -7,15 +7,9 @@ namespace popDay2
 {
 	internal class NewNotePage : BasePage
 	{
-		private IWebDriver browser;
 
 		public NewNotePage(IWebDriver browser):base(browser)
 		{
-		}
-
-		internal bool IsAt()
-		{
-			return browser.Title.StartsWith("Dodaj nowy wpis");
 		}
 
 		internal Uri Publish(string title, string content)
@@ -37,6 +31,7 @@ namespace popDay2
 			var newLinkInput = browser.FindElement(By.Id("new-post-slug"));
 			var partialLinkText = newLinkInput.GetAttribute("value");
 			var linkText = "http://automatyzacja.benedykt.net/uncategorized/" + partialLinkText;
+			WaitForClickable(By.Id("publish"), 5);
 
 			return new Uri(linkText);
 		}
@@ -51,5 +46,9 @@ namespace popDay2
 			logout.Click();
 		}
 
+		internal override bool IsAt()
+		{
+			return browser.Title.StartsWith("Dodaj nowy wpis");
+		}
 	}
 }
