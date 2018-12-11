@@ -89,11 +89,14 @@ namespace Automatyzacja
         public void TC02_AddComment()
         {
             browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/uncategorized/autem-vel-rerum-saepe/");
+
             var publishComment = browser.FindElement(By.Id("submit"));
-            WaitForClickable(By.Id("submit"), 5);            
+            WaitForClickable(By.Id("submit"), 5);     
+            
             string commentContent = Faker.Lorem.Sentence();
             string emailContent = Faker.Internet.Email();
             string nameContent = Faker.Name.First();
+
             var comment = browser.FindElement(By.Id("comment"));
             comment.SendKeys(commentContent);
             var author = browser.FindElement(By.Id("author"));

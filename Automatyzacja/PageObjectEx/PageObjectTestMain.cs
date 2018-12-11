@@ -24,13 +24,16 @@ namespace PageObjectEx
         {
             var exampleTitle = Faker.Lorem.Sentence();
             var exampleContent = Faker.Lorem.Paragraph();
-
             var loginPage = new LoginPage(browser);
+
             Assert.True(loginPage.IsAt());
+
             var kokpit = loginPage.Login("automatyzacja", "jesien2018");
-            
+
+
             var newNotePage = kokpit.NavigateToNewNote();
             Assert.True(newNotePage.IsAt());
+
             var newNoteUrl = newNotePage.Publish(exampleTitle, exampleContent);
 
             newNotePage.Logout();
@@ -41,10 +44,25 @@ namespace PageObjectEx
             Assert.Equal(exampleContent, notePage.Content);
         }
 
+        [Fact]
+        public void TC02()
+        {
+            var exampleAuthor = Faker.Name.First();
+            var exampleContent = Faker.Lorem.Paragraph();
+            var exampleEmail = Faker.Internet.Email();
+            
+            var commentPage = new NotePage(browser, new Uri("https://automatyzacja.benedykt.net/uncategorized/et-dolor-itaque-neque-ea/"));
+            Assert.True(commentPage.IsAt());
+            commentPage.CommentPublish(exampleAuthor, exampleEmail, exampleContent);
+
+          
+            Assert.Contains(exampleContent, commentPage.GetCommentList());
+            Assert.Contains(exampleAuthor, commentPage.GetAuthorList());
+
+        }
 
 
-
-        public void Dispose()
+            public void Dispose()
         {
             browser.Quit();
         }

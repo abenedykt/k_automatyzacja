@@ -12,6 +12,7 @@ namespace PageObjectEx
             browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/wp-admin");
         }
 
+
         internal KokpitPage Login(string userName, string password)
         {
             WaitForClickable(By.Id("user_login"),5);
@@ -35,5 +36,7 @@ namespace PageObjectEx
             return browser.FindElement(By.Id("user_login")) != null &&
                  browser.FindElement(By.Id("user_pass")) != null;
         }
+
+
     }
 }
