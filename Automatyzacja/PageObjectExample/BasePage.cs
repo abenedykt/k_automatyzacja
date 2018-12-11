@@ -31,5 +31,12 @@ namespace Automatyzacja
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
+        private void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
     }
 }

@@ -75,8 +75,10 @@
   <ItemGroup>
     <Compile Include="BasePage.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Class2.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginPage.cs" />
+    <Compile Include="MainPage.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

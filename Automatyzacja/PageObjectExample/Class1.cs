@@ -1,9 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.Linq;
 using Xunit;
 
 namespace Automatyzacja
