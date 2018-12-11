@@ -25,7 +25,6 @@ namespace Automatyzacja
             WaitForClickable(By.Id("publish"), 20);
             WaitForClickable(By.CssSelector(".edit-slug.button"), 5);
             return new Uri(browser.FindElement(By.CssSelector("#sample-permalink > a")).GetAttribute("href"));
-
         }
 
         internal void Logout()

@@ -8,10 +8,7 @@ namespace Automatyzacja
     {
         private IWebDriver browser;
 
-        public KokpitPage(IWebDriver browser)
-        {
-            this.browser = browser;
-        }
+        public KokpitPage(IWebDriver browser) => this.browser = browser;
 
         internal NewNotePage NavigateToNewNote()
         {
