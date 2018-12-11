@@ -1,0 +1,10 @@
+http://automatyzacja.benedykt.net/wp-admin
+u: automatyzacja
+p: jesien2018
+
+
+Adgangskode: 038743046152
+
+SSID = kmdnet
+
+
