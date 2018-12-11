@@ -88,7 +88,8 @@ namespace Automatyzacja
             Assert.Equal(exampleContent, browser.FindElement(By.CssSelector(".entry-content")).Text);
 
         }
-        
+
+     
         private void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
@@ -112,6 +113,53 @@ namespace Automatyzacja
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
+
+
+        [Fact]
+        public void Test0()
+        {
+            browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net");
+
+            var addComments = browser.FindElements(By.ClassName("comments-link"));
+            var firstComment = addComments.First();
+            firstComment.Click();
+
+            ScrollToElement(By.Name("submit"));
+
+            var comment = browser.FindElement(By.Id("comment"));
+            comment.Click();
+            var exampleComment = Faker.Lorem.Sentence();
+            comment.SendKeys(exampleComment);
+
+            var signature = browser.FindElement(By.Id("author"));
+            signature.Click();
+            var mySignature = Faker.Lorem.Sentence(1);
+            signature.SendKeys(mySignature);
+
+            var email = browser.FindElement(By.Id("email"));
+            email.Click();
+            var myEmail = Faker.Internet.Email();
+            email.SendKeys(myEmail);
+
+            ScrollToElement(By.CssSelector("nav"));
+            var submit = browser.FindElement(By.Id("submit"));
+            submit.Click();
+
+            
+
+
+
+        }
+
+        private void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
+
+
         public void Dispose()
         {
             browser.Quit();
