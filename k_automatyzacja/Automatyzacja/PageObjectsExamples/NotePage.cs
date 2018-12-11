@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using System;
 
-namespace Word_Press
+namespace PageObjecttsExamples
 {
-    internal class NotePage
+    internal class NotePage : BasePage
     {
-        private IWebDriver browser;
-        private Uri newNoteUrl;
 
-        public NotePage(IWebDriver browser, Uri newNoteUrl)
+        public NotePage(IWebDriver browser, Uri newNoteUrl) : base(browser)
         {
-            this.browser = browser;
-            this.newNoteUrl = newNoteUrl;
+            browser.Navigate().GoToUrl(newNoteUrl);
         }
 
         public string Title { get; internal set; }
         public string Content { get; internal set; }
+
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

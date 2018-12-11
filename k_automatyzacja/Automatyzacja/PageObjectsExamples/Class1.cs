@@ -41,25 +41,8 @@ namespace PageObjecttsExamples
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            browser.Quit();
         }
-    }
-
-
-
-    internal class NotePage
-    {
-        private IWebDriver browser;
-        private object newNoteUrl;
-
-        public NotePage(IWebDriver browser, object newNoteUrl)
-        {
-            this.browser = browser;
-            this.newNoteUrl = newNoteUrl;
-        }
-
-        public string Title { get; internal set; }
-        public string Content { get; internal set; }
     }
 
     internal class LoginPage : BasePage
@@ -87,7 +70,7 @@ namespace PageObjecttsExamples
             return new KokpitPage(browser);
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             if (browser.FindElement(By.Id("user_login")) != null &&
                 browser.FindElement(By.Id("user_pass")) != null)
@@ -102,5 +85,7 @@ namespace PageObjecttsExamples
             }
 
         }
+
+       
     }
 }
