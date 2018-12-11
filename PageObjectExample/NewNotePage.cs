@@ -5,16 +5,14 @@ using OpenQA.Selenium.Support.UI;
 
 namespace PageObjectExample
 {
-    internal class NewNotePage
+    internal class NewNotePage : BasePage
     {
-        private IWebDriver browser;
 
-        public NewNotePage(IWebDriver browser)
+        public NewNotePage(IWebDriver browser):base(browser)
         {
-            this.browser = browser;
         }
 
-        internal bool IsAt()
+        internal override bool IsAt()
         {
             return browser.Title.StartsWith("Dodaj nowy wpis");
         }
@@ -72,16 +70,6 @@ namespace PageObjectExample
 
         }
 
-        private void MoveToElement(By selector)
-        {
-            var element = browser.FindElement(selector);
-            MoveToElement(element);
-        }
-        private void MoveToElement(IWebElement element)
-        {
-            Actions builder = new Actions(browser);
-            Actions moveTo = builder.MoveToElement(element);
-            moveTo.Build().Perform();
-        }
+        
     }
 }

@@ -4,14 +4,12 @@ using OpenQA.Selenium;
 
 namespace PageObjectExample
 {
-    internal class NotePage
+    internal class NotePage :BasePage
     {
-        private IWebDriver browser;
         private Uri newNoteUrl;
 
-        public NotePage(IWebDriver browser, Uri newNoteUrl)
+        public NotePage(IWebDriver browser, Uri newNoteUrl):base(browser)
         {
-            this.browser = browser;
             this.newNoteUrl = newNoteUrl;
 
             browser.Navigate().GoToUrl(newNoteUrl);
@@ -19,5 +17,10 @@ namespace PageObjectExample
 
         public string Title => browser.FindElement(By.CssSelector(".entry-title")).Text;
         public string Content => browser.FindElement(By.CssSelector(".entry-content")).Text;
+
+        internal override bool IsAt()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

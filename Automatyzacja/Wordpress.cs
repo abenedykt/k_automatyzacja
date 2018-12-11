@@ -145,9 +145,10 @@ namespace Automatyzacja
             var submit = browser.FindElement(By.Id("submit"));
             submit.Click();
 
-             /*
-             var 
-             Assert.Equal(mySignature, browser.FindElement(By.ClassName("fn"))
+            /*
+            var enteredNames = browser.FindElements(By.ClassName("fn"));
+            var lastName = enteredNames.Last();
+             Assert.Equal(mySignature, lastName);
              */
 
 
