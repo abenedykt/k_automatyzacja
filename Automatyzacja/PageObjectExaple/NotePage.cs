@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace PageObjectExample
 {
-    internal class NotePage
+    internal class NotePage : BasePage
     {
-        private IWebDriver browser;
-        private Uri newNoteUrl;
+        private readonly Uri newNoteUrl;
 
-        public NotePage(IWebDriver browser, Uri newNoteUrl)
+        public NotePage(IWebDriver browser, Uri newNoteUrl):base(browser)
         {
-            this.browser = browser;
             this.newNoteUrl = newNoteUrl;
 
             browser.Navigate().GoToUrl(newNoteUrl);

@@ -1,16 +1,11 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace PageObjectExample
 {
-    internal class LoginPage
+    internal class LoginPage : BasePage
     {
-        private IWebDriver browser;
-
-        public LoginPage(IWebDriver browser)
+        public LoginPage(IWebDriver browser):base(browser)
         {
-            this.browser = browser;
             browser.Navigate().GoToUrl("https://automatyzacja.benedykt.net/wp-admin");
         }
 
@@ -41,18 +36,6 @@ namespace PageObjectExample
             {
                 return false;
             }
-        }
-
-        private void WaitForClickable(By by, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
-        }
-
-        private void WaitForClickable(IWebElement element, int seconds)
-        {
-            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }
