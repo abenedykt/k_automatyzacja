@@ -12,11 +12,11 @@ using OpenQA.Selenium.Interactions;
 
 namespace warsztatSelenium
 {
-    public class Class1 :IDisposable
-    {
+	public class Class1 : IDisposable
+	{
 		private IWebDriver browser;
 
-			public Class1()
+		public Class1()
 		{
 			browser = new ChromeDriver();
 		}
@@ -43,10 +43,12 @@ namespace warsztatSelenium
 			newPost.Click();
 			var noteTitle = browser.FindElement(By.Id("title"));
 			noteTitle.SendKeys(Faker.Lorem.Sentence());
+			var updatedTitle = noteTitle.GetAttribute("value");
 			browser.FindElement(By.Id("content-html"));
 			var noteField = browser.FindElement(By.ClassName("wp-editor-area"));
 			noteField.Click();
 			noteField.SendKeys(Faker.Lorem.Paragraph());
+			var content = noteField.GetAttribute("value");
 			var submit = browser.FindElement(By.Id("publish"));
 			submit.Click();
 			WaitForClickable(By.Id("publish"), 5);
@@ -59,11 +61,46 @@ namespace warsztatSelenium
 			Console.WriteLine(linkText);
 			var element = browser.FindElement(By.Id("wp-admin-bar-my-account"));
 			MoveToElement(By.Id("wp-admin-bar-my-account"));
+
+			WaitForClickable(By.Id("wp-admin-bar-logout"), 5);
 			var logout = browser.FindElement(By.Id("wp-admin-bar-logout"));
 			logout.Click();
-			browser.Navigate().GoToUrl(linkText);
 			Assert.NotNull(browser.FindElement(By.Id("user_login")));
 			Assert.NotNull(browser.FindElement(By.Id("user_pass")));
+			browser.Navigate().GoToUrl(linkText);
+			WaitForClickable(By.ClassName("entry-title"), 5);
+			var actualTitleField = browser.FindElement(By.ClassName("entry-title"));
+			var actualTitle = actualTitleField.Text;
+			var actualContentField = browser.FindElement(By.ClassName("entry-content"));
+			var actualContent = actualContentField.Text;
+			Console.WriteLine(actualTitle);
+			Assert.Equal(updatedTitle, actualTitle);
+			Assert.Equal(content, actualContent);
+		}
+
+		[Fact]
+		public void commenting()
+		{
+			browser.Navigate().GoToUrl("http://automatyzacja.benedykt.net/uncategorized/sed-molestiae-quia-optio-est-voluptas-dolorum-reprehenderit");
+			var textArea = browser.FindElement(By.Id("comment"));
+			textArea.Click();
+			textArea.SendKeys(Faker.Lorem.Sentence());
+			var commentField = browser.FindElement(By.Id("comment"));
+			var comment = commentField.Text;
+			var authorInput = browser.FindElement(By.Id("author"));
+			//authorInput.Click();
+			authorInput.SendKeys(Faker.Lorem.Sentence());
+			var authorText = browser.FindElement(By.Id("author"));
+			var authorFakerText = authorText.Text;
+			var emailInput = browser.FindElement(By.Id("email"));
+			emailInput.Click();
+			emailInput.SendKeys(Faker.Internet.Email());
+			var submitButton = browser.FindElement(By.Id("submit"));
+			submitButton.Click();
+			var commentList = browser.FindElement(By.Id("comments"));
+			var commentListTexts = commentList.Text;
+			Assert.Contains(comment, commentListTexts);
+			Assert.Contains(authorFakerText, commentListTexts);
 		}
 		private void MoveToElement(By selector)
 		{
