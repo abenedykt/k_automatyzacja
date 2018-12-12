@@ -35,7 +35,7 @@ namespace PageObjectsExamples
             navigateToCommentButton.Click();
         }
 
-        internal void CreateNewComment()
+        internal void CreateNewCommentAndSubmit()
         {
             var commentContentField = browser.FindElement(By.Id("comment"));
             commentContentField.Click();
