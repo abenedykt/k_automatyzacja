@@ -28,16 +28,40 @@ namespace PageObjectTest
         {
             var mainPage = new MainPage(browser);
             Assert.True(mainPage.IsAt());
+
             var openComments = new CommentsPage(browser);
             Assert.True(openComments.IsAt());
+
             var komentarz = Faker.Lorem.Sentence();
             var podpis = Faker.Name.FullName();
             var mail = Faker.Internet.Email();
             var witryna = Faker.Lorem.Sentence();
             openComments.Publish(komentarz, podpis, mail, witryna);
-
             var commentedArticle = new CommentedArticle(browser);
             Assert.True(condition: commentedArticle.HasComment(komentarz, podpis));
+        }
+
+        [Fact]
+        public void AddResponseToComment()
+        {
+            var mainPage = new MainPage(browser);
+            Assert.True(mainPage.IsAt());
+
+            var openComments = new CommentsPage(browser);
+            Assert.True(openComments.IsAt());
+
+            var komentarz = Faker.Lorem.Sentence();
+            var podpis = Faker.Name.FullName();
+            var mail = Faker.Internet.Email();
+            var witryna = Faker.Lorem.Sentence();
+            openComments.Publish(komentarz, podpis, mail, witryna);
+            var commentedArticle = new CommentedArticle(browser);
+            Assert.True(condition: commentedArticle.HasComment(komentarz, podpis));
+
+            var komentarzId = browser.Url.Split(new string[] { "#comment-" }, StringSplitOptions.None)[1].Split('#')[0];
+            commentedArticle.AddResponse(komentarz, podpis, mail, komentarzId);
+            var komentarzIdResponse = browser.Url.Split(new string[] { "#comment-" }, StringSplitOptions.None)[1].Split('#')[0];
+            Assert.True(condition: commentedArticle.HasCommenedComment(komentarz, podpis,komentarzIdResponse));
         }
     }
 }
