@@ -34,6 +34,36 @@ namespace popDay2
 			Actions moveTo = builder.MoveToElement(element);
 			moveTo.Build().Perform();
 		}
+		private void ScrollAndInsert(string elementId, string input)
+		{
+			MoveToElement(By.Id(elementId));
+			var comment = browser.FindElement(By.Id(elementId));
+			comment.SendKeys(input);
+		}
+
+		public void AddNewComment(string fakerUserName, string fakerEmail, string fakerComment)
+		{
+			ScrollAndInsert("comment", fakerComment);
+			ScrollAndInsert("author", fakerUserName);
+			ScrollAndInsert("email", fakerEmail);
+
+			MoveToElement(By.ClassName("nav-previous"));
+			var submit = browser.FindElement(By.Id("submit"));
+			submit.Click();
+		}
+
+		public bool IsElementExistOnPage(string elementName, string searchedElement)
+		{
+			var comments = browser.FindElements(By.ClassName(elementName));
+			var foundElement = comments.Single(a => a.Text == searchedElement).Text;
+			return foundElement == searchedElement;
+		}
+
+		internal override bool IsAt()
+		{
+			return browser.FindElement(By.ClassName("site-title")) != null &&
+				   browser.FindElement(By.ClassName("site-description")) != null;
+
 		internal abstract bool IsAt();
 	}
 }
