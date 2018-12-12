@@ -11,9 +11,9 @@ namespace PageObjecttsExamples
         public BasePage(IWebDriver browser)
         {
             this.browser = browser;
-        }
-
-        protected void WaitForClickable(By by, int seconds)
+        }         
+    
+    protected void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));
@@ -34,6 +34,8 @@ namespace PageObjecttsExamples
             Actions moveTo = builder.MoveToElement(element);
             moveTo.Build().Perform();
         }
+
+
 
         internal abstract bool IsAt();
 

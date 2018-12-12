@@ -67,6 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddReplyToComment.cs" />
+    <Compile Include="ClickOnReplyButton.cs" />
     <Compile Include="CreateNewComment.cs" />
     <Compile Include="BasePage.cs" />
     <Compile Include="BlogPage.cs" />
