@@ -1,9 +1,14 @@
-﻿namespace PageObjectsExamples
+﻿using OpenQA.Selenium;
+using PageObjecttsExamples;
+using System;
+
+
+namespace PageObjectsExamples
 {
-    internal class LoginSettings
+    public class LoginSettings
     {
-        public LoginSettings()
-        {
-        }
+        public const string UserLogin = "automatyzacja";
+        public const string UserPassword = "jesien2018";
+        
     }
 }

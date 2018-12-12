@@ -20,7 +20,13 @@ namespace PageObjectsExamples
             emailAddress.SendKeys("testing.address@gshtest.pl");
         }
 
-        
+    public void Submit()
+        {
+            var subminButton = browser.FindElement(By.Id("submit"));
+            subminButton.Submit();
+        }
+
+
 
         internal override bool IsAt()
         {

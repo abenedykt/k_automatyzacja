@@ -8,12 +8,19 @@ namespace PageObjecttsExamples
     internal abstract class BasePage
     {
         protected readonly IWebDriver browser;
+        private IWebElement browser1;
+
         public BasePage(IWebDriver browser)
         {
             this.browser = browser;
-        }         
-    
-    protected void WaitForClickable(By by, int seconds)
+        }
+
+        protected BasePage(IWebElement browser1)
+        {
+            this.browser1 = browser1;
+        }
+
+        protected void WaitForClickable(By by, int seconds)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(by));

@@ -41,28 +41,34 @@ namespace PageObjectsExamples
         [Fact]
 
         public void Add_Comment_To_Newly_Created_Comment()
-        { var exampleTitle = Faker.Lorem.Sentence();
+        {
+
+        var exampleTitle = Faker.Lorem.Sentence();
         var exampleContent = Faker.Lorem.Paragraph();
 
         var loginPage = new LoginPage(browser);
         Assert.True(loginPage.IsAt());
-        var kokpit = loginPage.Login("automatyzacja", "jesien2018");
-
+        var kokpit = loginPage.Login(LoginSettings.UserLogin, LoginSettings.UserPassword);   
+            
         var newNotePage = kokpit.NavigateToNewNote();
         Assert.True(newNotePage.IsAt());
+
         var newNoteUrl = newNotePage.Publish(exampleTitle, exampleContent);
-
         newNotePage.Logout();
-
          var blogPage = new BlogPage(browser);
          Assert.True(blogPage.IsAt());
+
          blogPage.NavigateToComment();
          blogPage.ClickOnAddCommentButton();
          var createNewComment = new CreateNewComment(browser);
          createNewComment.Submit();
-         var commentsArea = browser.FindElement(By.ClassName("comments-area"));
+         
+         var commentsArea = new CommentsArea(browser);
          var clickOnReplyButton = new ClickOnReplyButton(browser);
          var addReplyToComment = new AddReplyToComment(browser);
+         addReplyToComment.Submit();
+        
+         
 
          
         }
