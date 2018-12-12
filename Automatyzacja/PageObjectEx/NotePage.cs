@@ -59,11 +59,26 @@ namespace PageObjectEx
 
         }
 
-        
-       
-         
-  
+        internal void AddCommentToComment()
+        {
 
+           
+            var commentToComment = browser.FindElements(By.CssSelector("a.comment-reply-link")).First();
+            commentToComment.SendKeys(Keys.Enter);
 
+        }
+        internal IEnumerable<string> GetCommentToCommentAuthor()
+        {
+            var author = "Ruthie";
+            var x = browser.FindElements(By.CssSelector("ol.children>li")).Single(e => e.FindElement(By.ClassName("fn")).Text == author);
+
+            return new[] { "", "" };
+        }
+
+        internal bool Has(string exampleAuthor, string exampleContent)
+        {
+            var comment = browser.FindElements(By.CssSelector("ol.children>li")).Single(e => e.FindElement(By.ClassName("fn")).Text == exampleAuthor && e.FindElement(By.ClassName("comment-content")).Text == exampleContent);
+            return comment != null;
+        }
     }
 }

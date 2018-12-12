@@ -60,7 +60,26 @@ namespace PageObjectEx
  
         }
 
-            public void Dispose()
+        [Fact]
+        public void TC03()
+        {
+            string exampleAuthor = Faker.Name.First();
+            var exampleContent = Faker.Lorem.Paragraph();
+            var exampleEmail = Faker.Internet.Email();
+            var commentPage = new NotePage(browser, EnvConf.NoteUrl);
+           
+
+            commentPage.AddCommentToComment();
+            commentPage.CommentPublish(exampleAuthor, exampleEmail, exampleContent);
+
+            //Assert.Contains(exampleContent, commentPage.GetCommentToCommentAuthor());
+            //Assert.Contains(exampleAuthor, commentPage.GetCommentToCommentAuthor());
+
+
+            Assert.True(commentPage.Has(exampleAuthor, exampleContent));
+        }
+
+        public void Dispose()
         {
             browser.Quit();
         }

@@ -61,6 +61,8 @@ namespace PageObjectEx
             Assert.NotNull(browser.FindElement(By.Id("user_pass")));
         }
 
+
+
         internal override bool IsAt()
         {
             return browser.Title.StartsWith("Dodaj nowy wpis");
