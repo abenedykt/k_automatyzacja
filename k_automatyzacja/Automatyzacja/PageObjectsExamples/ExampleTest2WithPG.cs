@@ -62,7 +62,8 @@ namespace PageObjectsExamples
             blogPage.CreateNewCommentAndSubmit();
             blogPage.AddReplyToComment();
 
-         
+            Assert.Contains("Test Test", browser.FindElement(By.CssSelector(".comment-author")).Text);
+
         }
 
         public void Dispose()
