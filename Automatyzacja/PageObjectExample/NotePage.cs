@@ -25,6 +25,7 @@ namespace Automatyzacja
         {
             throw new NotImplementedException();
         }
+
         public NotePage(IWebDriver browser, Uri NoteUrl) : base(browser)
         {
             this.NoteUrl = NoteUrl;
@@ -35,15 +36,9 @@ namespace Automatyzacja
         {
         }
 
-        public string GetCommentID()
-        {
-            return response.GetAttribute("id");
-        }
+        public string GetCommentID() => response.GetAttribute("id");
 
-        internal string GetResponseID(Uri uri)
-        {
-            return FindComment(uri).GetAttribute("id");
-        }
+        internal string GetResponseID(Uri uri) => FindComment(uri).GetAttribute("id");
 
         internal string GetResponsetoCommentID(string comment, string name)
         {
