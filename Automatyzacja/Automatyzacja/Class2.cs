@@ -60,6 +60,7 @@ namespace Automatyzacja
             String name = Faker.Internet.Email();
             browser.FindElement(By.Id("author")).SendKeys(name);
             browser.FindElement(By.Id("email")).SendKeys(name);
+            MoveToElement(By.CssSelector("nav"));
             browser.FindElement(By.Id("submit")).Click();
             String url = browser.Url;
 

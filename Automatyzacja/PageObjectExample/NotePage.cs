@@ -35,17 +35,16 @@ namespace Automatyzacja
             return new Uri(browser.Url);
         }
 
-        internal string GetCommentName(IWebDriver driver, Uri url) => 
-            FindComment(driver, url).FindElement(By.CssSelector(".fn")).Text;
+        internal string GetCommentName(Uri url) => 
+            FindComment(url).FindElement(By.CssSelector(".fn")).Text;
 
-        internal string GetCommentContent(IWebDriver driver, Uri url) => 
-            FindComment(driver, url).FindElement(By.CssSelector(".comment-content > p")).Text;
+        internal string GetCommentContent(Uri url) => 
+            FindComment(url).FindElement(By.CssSelector(".comment-content > p")).Text;
 
-        private IWebElement FindComment(IWebDriver driver, Uri noteadress)
+        private IWebElement FindComment(Uri url)
         {
-            String[] comment_num = noteadress.ToString().Split('#');
-            String searched = "div-" + comment_num[1];
-            return driver.FindElement(By.Id(searched));
+            String[] comment_num = url.ToString().Split('#');
+            return browser.FindElement(By.Id("div-" + comment_num[1]));
         }
     }
 }

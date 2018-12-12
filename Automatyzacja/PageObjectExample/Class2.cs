@@ -1,9 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.Linq;
 using Xunit;
 
 namespace Automatyzacja
@@ -24,8 +21,8 @@ namespace Automatyzacja
             Uri noteadress = notePage.AddComment(comment, name, name);
             notePage = new NotePage(browser, noteadress);
 
-            Assert.Equal(name, actual: notePage.GetCommentName(browser, noteadress));
-            Assert.Equal(comment, actual: notePage.GetCommentContent(browser, noteadress));
+            Assert.Equal(name, actual: notePage.GetCommentName(noteadress));
+            Assert.Equal(comment, actual: notePage.GetCommentContent( noteadress));
         }   
     }
 }

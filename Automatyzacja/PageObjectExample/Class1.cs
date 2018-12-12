@@ -13,8 +13,6 @@ namespace Automatyzacja
         [Fact]
         public void Can_publish_new_note_that_is_available_to_external_user()
         {
-            var exampleTitle = Faker.Lorem.Sentence();
-            var exampleContent = Faker.Lorem.Paragraph();
             var loginPage = new LoginPage(browser);
 
             Assert.True(loginPage.IsAt());
@@ -24,6 +22,8 @@ namespace Automatyzacja
 
             Assert.True(newNotePage.IsAt());
 
+            var exampleContent = Faker.Lorem.Paragraph();
+            var exampleTitle = Faker.Lorem.Sentence();
             var newNoteUrl = newNotePage.Publish(title: exampleTitle, content: exampleContent);
             newNotePage.Logout();
             var notePage = new NotePage(browser: browser, NoteUrl: newNoteUrl);
