@@ -50,16 +50,18 @@ namespace PageObjectEx
             var exampleAuthor = Faker.Name.First();
             var exampleContent = Faker.Lorem.Paragraph();
             var exampleEmail = Faker.Internet.Email();
-            
-            var commentPage = new NotePage(browser, new Uri("https://automatyzacja.benedykt.net/uncategorized/et-dolor-itaque-neque-ea/"));
+ 
+            var commentPage = new NotePage(browser, NotePage.NoteUrlVar);
             Assert.True(commentPage.IsAt());
             commentPage.CommentPublish(exampleAuthor, exampleEmail, exampleContent);
-
+            
           
             Assert.Contains(exampleContent, commentPage.GetCommentList());
             Assert.Contains(exampleAuthor, commentPage.GetAuthorList());
-
+            
+           
         }
+        
 
 
             public void Dispose()

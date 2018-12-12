@@ -7,9 +7,10 @@ namespace PageObjectEx
 {
     internal class NotePage : BasePage
     {
-
-        private Uri newNoteUrl;
-
+       
+        
+            public Uri newNoteUrl;
+        
         public NotePage(IWebDriver browser, Uri newNoteUrl) : base(browser)
         {
 
@@ -55,6 +56,12 @@ namespace PageObjectEx
             return browser.FindElements(By.CssSelector(".fn")).Select(x => x.Text);
 
         }
+
+        
+       
+         public static Uri NoteUrlVar = new Uri("https://automatyzacja.benedykt.net/uncategorized/et-dolor-itaque-neque-ea/");
+  
+
 
     }
 }
