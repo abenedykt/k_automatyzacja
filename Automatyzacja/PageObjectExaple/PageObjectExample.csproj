@@ -68,9 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginPage.cs" />
-    <Compile Include="MySuperNewPageObject.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />
     <Compile Include="Wordpress_pop_tests.cs" />

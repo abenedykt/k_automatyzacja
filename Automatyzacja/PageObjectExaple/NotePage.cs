@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenQA.Selenium;
 
 namespace PageObjectExample
@@ -19,7 +20,38 @@ namespace PageObjectExample
 
         internal override bool IsAt()
         {
-            throw new NotImplementedException();
+            return browser.FindElements(By.CssSelector("body.single-post")).Any();
+        }
+
+        internal void AddComment(Comment commentToPublish)
+        {
+            ScrollToElement(By.Id("email"));
+            browser.FindElement(By.Id("comment")).SendKeys(commentToPublish.Text);
+            browser.FindElement(By.Id("author")).SendKeys(commentToPublish.Author);
+            browser.FindElement(By.Id("email")).SendKeys(commentToPublish.Email);
+
+            ScrollToElement(By.CssSelector("nav"));
+            browser.FindElement(By.Id("submit")).Click();
+        }
+
+        internal bool HasComment(Comment comment)
+        {
+            return AuthorIsSet(comment)
+                && CommentIsSet(comment);
+        }
+
+        private bool CommentIsSet(Comment comment)
+        {
+            var comments = browser.FindElements(By.CssSelector("li.comment"));
+
+            return comments.Any(c => c.FindElement(By.ClassName("comment-content")).Text == comment.Text);
+        }
+
+        private bool AuthorIsSet(Comment comment)
+        {
+            var comments = browser.FindElements(By.CssSelector("li.comment"));
+
+            return comments.Any(c => c.FindElement(By.CssSelector("b.fn")).Text == comment.Author);
         }
     }
 }
