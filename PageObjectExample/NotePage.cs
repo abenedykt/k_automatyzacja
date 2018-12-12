@@ -8,6 +8,8 @@ namespace PageObjectExample
     internal class NotePage : BasePage
     {
         private Uri newNoteUrl;
+        public string commentElementId = "comment-content";
+        public string userNameElementId = "fn";
 
         public NotePage(IWebDriver browser, Uri newNoteUrl) : base(browser)
         {
@@ -18,9 +20,35 @@ namespace PageObjectExample
         public string Title => browser.FindElement(By.ClassName("entry-title")).Text;
         public string Content => browser.FindElement(By.ClassName("entry-content")).Text;
 
+        private void ScrollAndInsert(string elementId, string input)
+        {
+            ScrollToElement(By.Id(elementId));
+            var comment = browser.FindElement(By.Id(elementId));
+            comment.SendKeys(input);
+        }
+
+        public void AddNewComment(string fakerUserName, string fakerEmail, string fakerComment)
+        {
+            ScrollAndInsert("comment", fakerComment);
+            ScrollAndInsert("author", fakerUserName);
+            ScrollAndInsert("email", fakerEmail);
+
+            ScrollToElement(By.ClassName("nav-previous"));
+            var submit = browser.FindElement(By.Id("submit"));
+            submit.Click();
+        }
+
+        public bool IsElementExistOnPage(string elementName, string searchedElement)
+        {
+            var comments = browser.FindElements(By.ClassName(elementName));
+            var foundElement = comments.Single(a => a.Text == searchedElement).Text;
+            return foundElement == searchedElement;
+        }
+
         internal override bool IsAt()
         {
-            throw new NotImplementedException();
+            return browser.FindElement(By.ClassName("site-title")) != null &&
+                   browser.FindElement(By.ClassName("site-description")) != null;
         }
     }
 }

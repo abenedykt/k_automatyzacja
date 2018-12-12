@@ -42,11 +42,13 @@ public class PageObjectTests : IDisposable
         [Fact]
         public void PopNewComment()
         {
+            Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
+
             var fakerComment = Faker.Lorem.Sentence();
             var fakerUserName = Faker.Name.First();
             var fakerEmail = Faker.Internet.Email();
  
-            var blogPage = new BlogPage(browser);
+            var blogPage = new NotePage(browser, url);
 
             Assert.True(blogPage.IsAt());
             blogPage.AddNewComment(fakerUserName, fakerEmail, fakerComment);
