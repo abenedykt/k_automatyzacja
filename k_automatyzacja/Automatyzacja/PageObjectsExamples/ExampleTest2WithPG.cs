@@ -42,7 +42,6 @@ namespace PageObjectsExamples
 
         public void Add_Comment_To_Newly_Created_Comment()
         {
-
         var exampleTitle = Faker.Lorem.Sentence();
         var exampleContent = Faker.Lorem.Paragraph();
 
@@ -55,18 +54,15 @@ namespace PageObjectsExamples
 
         var newNoteUrl = newNotePage.Publish(exampleTitle, exampleContent);
         newNotePage.Logout();
-         var blogPage = new BlogPage(browser);
-         Assert.True(blogPage.IsAt());
 
-         blogPage.NavigateToComment();
-         blogPage.ClickOnAddCommentButton();
-         var createNewComment = new CreateNewComment(browser);
-         createNewComment.Submit();
+        var blogPage = new BlogPage(browser);
+        Assert.True(blogPage.IsAt());         
+        blogPage.ClickOnAddCommentButton();
+        blogPage.CreateNewComment();
+        blogPage.AddReplyToComment();
          
-         var commentsArea = new CommentsArea(browser);
-         var clickOnReplyButton = new ClickOnReplyButton(browser);
-         var addReplyToComment = new AddReplyToComment(browser);
-         addReplyToComment.Submit();
+              
+         //Assert.
         
          
 

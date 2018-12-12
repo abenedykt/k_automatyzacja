@@ -6,9 +6,9 @@ using System;
 
 namespace PageObjectsExamples
 {
-    internal class CreateNewComment : BasePage 
+    internal class CreateNewComment : BasePage
     {
-       
+
 
         public CreateNewComment(IWebDriver browser) : base(browser)
         {
@@ -28,7 +28,7 @@ namespace PageObjectsExamples
         {
             var subminButton = browser.FindElement(By.Id("submit"));
             subminButton.Submit();
-        }       
+        }
 
         internal override bool IsAt()
         {

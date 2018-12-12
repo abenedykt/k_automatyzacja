@@ -70,10 +70,10 @@
     <Compile Include="AddReplyToComment.cs" />
     <Compile Include="ClickOnReplyButton.cs" />
     <Compile Include="CommentsArea.cs" />
-    <Compile Include="CreateNewComment.cs" />
     <Compile Include="BasePage.cs" />
     <Compile Include="BlogPage.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="CreateNewComment.cs" />
     <Compile Include="ExampleTest2WithPG.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginSettings.cs" />
