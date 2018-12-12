@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add_response_to_comment.cs" />
     <Compile Include="BasePage.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Class2.cs" />
