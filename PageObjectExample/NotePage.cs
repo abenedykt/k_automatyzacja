@@ -51,15 +51,21 @@ namespace PageObjectExample
             return browser.FindElements(By.CssSelector("body.single-post")).Any();
         }
 
-        internal void AddCommentToComment(komentarz comment, komentarz newComment)
+        internal void AddAnswerToComment(komentarz comment, komentarz newComment)
         {
             var replys = browser.FindElements(By.ClassName("comment-body"));
-            
             var reply = replys.Where(a => a.Text.Contains(comment.Comment));
-
-            reply.First().FindElement(By.TagName("a")).Click();
+            reply.First().FindElement(By.ClassName("comment-reply-link")).Click();
 
             AddNewComment(newComment);
+        }
+
+        internal bool IsAnswerExist(komentarz newComment)
+        {
+            var replys = browser.FindElements(By.ClassName("children"));
+            var reply = replys.Where(a => a.Text.Contains(newComment.Comment));
+
+            return reply.First().FindElement(By.ClassName("comment-content")).Text == newComment.Comment;
         }
     }
 }

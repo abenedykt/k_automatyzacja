@@ -42,6 +42,11 @@ public class PageObjectTests : IDisposable
         [Fact]
         public void PopNewComment()
         {
+            //przekazywanie cookisow
+            var exampleCooke = new Cookie("pierniczek", "!@#$%^&*()", "");
+            browser.Manage().Cookies.AddCookie(exampleCooke);
+
+
             Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
 
             komentarz comment = CreateNewComment();
@@ -67,9 +72,9 @@ public class PageObjectTests : IDisposable
 
             Assert.True(blogPage.IsAt());
             blogPage.AddNewComment(comment);
+            blogPage.AddAnswerToComment(comment, newComment);
 
-            blogPage.AddCommentToComment(comment, newComment);
-
+            Assert.True(blogPage.IsAnswerExist(newComment));
             Assert.True(blogPage.IsElementExistOnPage(blogPage.commentElementId, newComment.Comment));
             Assert.True(blogPage.IsElementExistOnPage(blogPage.userNameElementId, newComment.UserName));
         }
