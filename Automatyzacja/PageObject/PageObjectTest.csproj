@@ -71,8 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="CommentedArticle.cs" />
+    <Compile Include="CommentsPage.cs" />
     <Compile Include="KokpitPage.cs" />
     <Compile Include="LoginPage.cs" />
+    <Compile Include="MainPage.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />
     <Compile Include="Wordpress.cs" />

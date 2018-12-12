@@ -39,6 +39,12 @@ namespace PageObjectTest
             moveTo.Build().Perform();
         }
         internal abstract bool IsAt();
-
+        protected void ScrollToElement(By selector)
+        {
+            IWebElement element = browser.FindElement(selector);
+            Actions actions = new Actions(browser);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
     }
 }
