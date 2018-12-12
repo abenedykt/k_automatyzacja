@@ -9,8 +9,10 @@ namespace PageObjectEx
     {
        
         
-            public Uri newNoteUrl;
+        public Uri newNoteUrl;
+
         
+
         public NotePage(IWebDriver browser, Uri newNoteUrl) : base(browser)
         {
 
@@ -59,7 +61,7 @@ namespace PageObjectEx
 
         
        
-         public static Uri NoteUrlVar = new Uri("https://automatyzacja.benedykt.net/uncategorized/et-dolor-itaque-neque-ea/");
+         
   
 
 
