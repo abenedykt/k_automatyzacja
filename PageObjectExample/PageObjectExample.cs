@@ -47,13 +47,34 @@ namespace PageObjectExample
             var exampleAuthor = Faker.Name.First();
             var exampleEmail = Faker.Internet.Email();
 
-            var blogPage = new BlogPage(browser);
+            var blogPage = new newCommentPage(browser);
             Assert.True(blogPage.IsAt());
 
             blogPage.AddNewComment(exampleComment, exampleAuthor, exampleEmail);
-
             Assert.Contains(exampleComment, blogPage.Comments());
 
+        }
+
+        [Fact]
+        public void Add_answear_to_comment()
+        {
+            var exampleComment = Faker.Lorem.Sentence();
+            var exampleAuthor = Faker.Name.First();
+            var exampleEmail = Faker.Internet.Email();
+            //var exampleAnswearToComment = Faker.Lorem.Sentence();
+            var exampleAuthor2 = Faker.Name.First();
+            var exampleEmail2 = Faker.Internet.Email();
+            var exampleAnswearToComment = Faker.Lorem.Sentence();
+
+            var blogPage = new newCommentPage(browser);
+            Assert.True(blogPage.IsAt());
+
+            blogPage.AddNewComment(exampleComment, exampleAuthor, exampleEmail);
+            Assert.Contains(exampleComment, blogPage.Comments());
+
+            blogPage.AddAnswearToComment(exampleAnswearToComment, exampleAuthor, exampleAuthor2, exampleEmail2);
+
+            Assert.Contains(exampleAnswearToComment, blogPage.AnswearToComment(exampleAuthor2));
         }
 
         public void Dispose()
