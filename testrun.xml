@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assemblies timestamp="12/12/2018 11:11:05">
+  <assembly name="C:\kmd\automatyzacja\Automatyzacja\PageObjectExaple\bin\Debug\PageObjectExample.DLL" environment="64-bit .NET 4.0.30319.42000 [collection-per-class, parallel (4 threads)]" test-framework="xUnit.net 2.4.1.0" run-date="2018-12-12" run-time="11:10:26" config-file="C:\kmd\automatyzacja\Automatyzacja\packages\xunit.runner.console.2.4.1\tools\net461\xunit.console.exe.Config" total="2" passed="2" failed="0" skipped="0" time="39.144" errors="0">
+    <errors />
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for PageObjectExample.Wordpress_pop_tests" time="38.936">
+      <test name="PageObjectExample.Wordpress_pop_tests.Can_add_a_comment_to_existing_note" type="PageObjectExample.Wordpress_pop_tests" method="Can_add_a_comment_to_existing_note" time="21.0779826" result="Pass" />
+      <test name="PageObjectExample.Wordpress_pop_tests.Can_publish_new_note_that_is_avaliable_to_external_users" type="PageObjectExample.Wordpress_pop_tests" method="Can_publish_new_note_that_is_avaliable_to_external_users" time="17.8578845" result="Pass" />
+    </collection>
+  </assembly>
+</assemblies>
