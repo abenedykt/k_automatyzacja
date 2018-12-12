@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="BasePage.cs" />
     <Compile Include="KokpitPage.cs" />
+    <Compile Include="komentarz.cs" />
     <Compile Include="NewNotePage.cs" />
     <Compile Include="NotePage.cs" />
     <Compile Include="PageObjectTests.cs" />

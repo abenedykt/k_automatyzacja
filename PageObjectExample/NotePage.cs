@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
@@ -27,11 +28,11 @@ namespace PageObjectExample
             comment.SendKeys(input);
         }
 
-        public void AddNewComment(string fakerUserName, string fakerEmail, string fakerComment)
+        public void AddNewComment(komentarz comment)
         {
-            ScrollAndInsert("comment", fakerComment);
-            ScrollAndInsert("author", fakerUserName);
-            ScrollAndInsert("email", fakerEmail);
+            ScrollAndInsert("comment", comment.Comment);
+            ScrollAndInsert("author", comment.UserName);
+            ScrollAndInsert("email", comment.Email);
 
             ScrollToElement(By.ClassName("nav-previous"));
             var submit = browser.FindElement(By.Id("submit"));
@@ -47,8 +48,18 @@ namespace PageObjectExample
 
         internal override bool IsAt()
         {
-            return browser.FindElement(By.ClassName("site-title")) != null &&
-                   browser.FindElement(By.ClassName("site-description")) != null;
+            return browser.FindElements(By.CssSelector("body.single-post")).Any();
+        }
+
+        internal void AddCommentToComment(komentarz comment, komentarz newComment)
+        {
+            var replys = browser.FindElements(By.ClassName("comment-body"));
+            
+            var reply = replys.Where(a => a.Text.Contains(comment.Comment));
+
+            reply.First().FindElement(By.TagName("a")).Click();
+
+            AddNewComment(newComment);
         }
     }
 }

@@ -44,17 +44,43 @@ public class PageObjectTests : IDisposable
         {
             Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
 
-            var fakerComment = Faker.Lorem.Sentence();
-            var fakerUserName = Faker.Name.First();
-            var fakerEmail = Faker.Internet.Email();
- 
+            komentarz comment = CreateNewComment();
+
             var blogPage = new NotePage(browser, url);
 
             Assert.True(blogPage.IsAt());
-            blogPage.AddNewComment(fakerUserName, fakerEmail, fakerComment);
+            blogPage.AddNewComment(comment);
 
-            Assert.True(blogPage.IsElementExistOnPage(blogPage.commentElementId, fakerComment));
-            Assert.True(blogPage.IsElementExistOnPage(blogPage.userNameElementId, fakerUserName));
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.commentElementId, comment.Comment));
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.userNameElementId, comment.UserName));
+        }
+
+        [Fact]
+        public void PopCommentToComment()
+        {
+            Uri url = new Uri("http://automatyzacja.benedykt.net/uncategorized/modi-aliquid-sunt-numquam/", UriKind.Absolute);
+
+            komentarz comment = CreateNewComment();
+            komentarz newComment = CreateNewComment();
+
+            var blogPage = new NotePage(browser, url);
+
+            Assert.True(blogPage.IsAt());
+            blogPage.AddNewComment(comment);
+
+            blogPage.AddCommentToComment(comment, newComment);
+
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.commentElementId, newComment.Comment));
+            Assert.True(blogPage.IsElementExistOnPage(blogPage.userNameElementId, newComment.UserName));
+        }
+
+        private komentarz CreateNewComment()
+        {
+            komentarz comment = new komentarz();
+            comment.Comment = Faker.Lorem.Sentence();
+            comment.UserName = Faker.Name.First();
+            comment.Email = Faker.Internet.Email();
+            return comment;
         }
 
         public void Dispose()
